@@ -1,5 +1,5 @@
 env: standard
 
-runtime: nodejs16
+runtime: nodejs14
 
 entrypoint: start:prod
