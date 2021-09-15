@@ -1,4 +1,4 @@
-name: Deploy to AppEngine
+name: Deploy to Google AppEngine
 
 on:
   push:
@@ -6,11 +6,23 @@ on:
       - master
 
 jobs:
-  deplay-staging:
-    name: GAE deplay
+  deploy:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
+
     steps:
+      - name: Checkout repository
       - uses: actions/checkout@v2
+
+      - name: Build nest.js application
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm i
+      - run: npm run build
 
       - name: Deploy an App Engine app
         id: deploy-app

@@ -1,4 +1,3 @@
-import { join } from 'path';
 import * as mongoose from 'mongoose';
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';

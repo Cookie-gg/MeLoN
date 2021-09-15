@@ -1,3 +1,5 @@
 env: standard
 
 runtime: nodejs16
+
+entrypoint: start:prod
