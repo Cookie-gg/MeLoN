@@ -2,24 +2,155 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type CatType {
+type ListBodyObject {
+  title: String!
+  icon: String
+}
+
+type ListObject {
+  id: ID!
+  list: [ListBodyObject!]!
+  name: String!
+  section: String!
+}
+
+type TopicObject {
   id: ID!
   name: String!
-  age: Int!
-  breed: String!
+  displayName: String!
+  icon: String!
+  someArticles: [ArticleObject!]!
+  allArticles: [ArticleObject!]!
+}
+
+type ArticleObject {
+  id: ID!
+  releaseDate: Timestamp!
+  updateDate: Timestamp!
+  title: String!
+  emoji: String!
+  type: String!
+  topics: [String!]!
+  typeIcon: TopicObject!
+  topicIcons: [TopicObject!]!
+  body: String!
+  relations: [ArticleObject!]!
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
+type TitleObject {
+  id: ID!
+  text: String!
+  page: String!
+  section: String!
+  icon: String
+}
+
+type SentenceObject {
+  id: ID!
+  text: [String!]!
+  page: String!
+  section: String!
+}
+
+type ImageObject {
+  id: ID!
+  data: String!
+  name: String!
+}
+
+type PathObject {
+  id: ID!
+  name: String!
+  path: String!
+  icon: String!
+  order: Int
 }
 
 type Query {
-  hello: String!
-  cats: [CatType!]!
+  findList(section: String!, name: String!): ListObject!
+  findListBySection(section: String!): [ListObject!]!
+  findTopic(name: String!): TopicObject!
+  findAllTopics: [TopicObject!]!
+  findArticles(latest: Boolean!): [ArticleObject!]!
+  findAllArticles: [ArticleObject!]!
+  findTitle(page: String!): [TitleObject!]!
+  findSentence(page: String!): [SentenceObject!]!
+  findImage(name: String!): ImageObject!
+  findPath(name: String!): PathObject!
+  findAllPaths: [PathObject!]!
+  findPathByOrder(order: Float!): PathObject!
 }
 
 type Mutation {
-  createCat(input: CatInput!): CatType!
+  addList(args: ListInput!): ListObject!
+  updateList(args: ListInput!): ListObject!
+  addTopic(args: TopicInput!): TopicObject!
+  updateTopic(args: TopicInput!): TopicObject!
+  addArticle(args: ArticleInput!): ArticleObject!
+  updateArticle(args: ArticleInput!, id: String!): ArticleObject!
+  addTitle(args: TitleInput!): TitleObject!
+  updateTitle(args: TitleInput!): TitleObject!
+  addSentence(args: SentenceInput!): SentenceObject!
+  updateSentence(args: SentenceInput!): SentenceObject!
+  addImage(args: ImageInput!): ImageObject!
+  updateImage(args: ImageInput!): ImageObject!
+  addPath(args: PathInput!): PathObject!
+  update(args: PathInput!, name: String!): PathObject!
 }
 
-input CatInput {
+input ListInput {
+  list: [ListBodyInput!]!
   name: String!
-  age: Int!
-  breed: String!
+  section: String!
+}
+
+input ListBodyInput {
+  title: String!
+  icon: String
+}
+
+input TopicInput {
+  name: String!
+  displayName: String!
+  icon: String!
+}
+
+input ArticleInput {
+  releaseDate: Timestamp!
+  updateDate: Timestamp!
+  title: String!
+  emoji: String!
+  type: String!
+  topics: [String!]!
+  body: String!
+}
+
+input TitleInput {
+  text: String!
+  page: String!
+  section: String!
+  icon: String
+}
+
+input SentenceInput {
+  text: [String!]!
+  page: String!
+  section: String!
+}
+
+input ImageInput {
+  data: String!
+  name: String!
+}
+
+input PathInput {
+  name: String!
+  path: String!
+  icon: String!
+  order: Int
 }
