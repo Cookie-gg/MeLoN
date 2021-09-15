@@ -21,7 +21,9 @@ mongoose.set('useFindAndModify', false);
       'mongodb+srv://cookie-gg:x9378l1FmJp03opU@page-data.3y2of.mongodb.net/data?retryWrites=true&w=majority',
     ),
     GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: !process.env.GAE_ENV
+        ? './src/schema.gql'
+        : '/tmp/schema.gql',
       buildSchemaOptions: {
         dateScalarMode: 'timestamp',
       },

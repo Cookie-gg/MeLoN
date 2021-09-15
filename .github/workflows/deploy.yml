@@ -5,23 +5,18 @@ on:
     branches:
       - master
 
-env:
-  PROJECT_ID: 'LeMoN'
-
 jobs:
-  deploy:
+  deplay-staging:
+    name: GAE deplay
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+
+      - name: Deploy an App Engine app
+        id: deploy-app
+        uses: google-github-actions/deploy-appengine@v0.3.1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Build Application
-        run: |
-          npm
-          npm run build
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          deliverables: app.yaml
+          credentials: ${{ secrets.GCP_SA_KEY }}
+          version: v1
