@@ -2,4 +2,4 @@ env: standard
 
 runtime: nodejs14
 
-entrypoint: start:prod
+entrypoint: npm run start:prod
