@@ -25,7 +25,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Build Nest.js application
-      - run: |
+        run: |
           npm i
           npm run build
 
