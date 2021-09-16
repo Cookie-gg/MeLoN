@@ -13,7 +13,5 @@
 .git
 .gitignore
 
-src/
-
 # Node.js dependencies:
 node_modules/
