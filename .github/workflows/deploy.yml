@@ -19,18 +19,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Build nest.js application
+      - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: npm i
-      - run: npm run build
+      - name: Build Nest.js application
+      - run: |
+          npm i
+          npm run build
 
-      - name: Deploy an App Engine app
-        uses: google-github-actions/deploy-appengine@v0.3.1
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@master
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          deliverables: app.yaml
           credentials: ${{ secrets.GCP_SA_KEY }}
-          version: v1
+
+      - name: Deploy App to GAE
+        run: gcloud app deploy
