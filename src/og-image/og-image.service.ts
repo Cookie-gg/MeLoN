@@ -24,7 +24,11 @@ export class OgImageService {
     ctx.fillStyle = '#1F1F1F';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(title, 600, 385);
+
+    const IMAGE_X = 600 as const;
+    const IMAGE_Y = 385 as const;
+
+    ctx.fillText(title, IMAGE_X, IMAGE_Y);
 
     const buffer = canvas.toBuffer();
     return buffer;
