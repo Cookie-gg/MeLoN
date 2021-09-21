@@ -5,6 +5,8 @@ import { TopicObject, TopicType } from 'src/topic/topic.model';
 export class ArticleObject {
   @Field(() => ID)
   id: string;
+  @Field()
+  readonly articleId: string;
   @Field(() => Date)
   readonly releaseDate: Date;
   @Field(() => Date)
@@ -29,6 +31,8 @@ export class ArticleObject {
 
 @InputType()
 export class ArticleInput {
+  @Field()
+  readonly articleId: string;
   @Field(() => Date)
   readonly releaseDate: Date;
   @Field(() => Date)
@@ -46,6 +50,7 @@ export class ArticleInput {
 }
 
 export interface ArticleType {
+  readonly articleId: string;
   readonly releaseDate: Date;
   readonly updateDate: Date;
   readonly title: string;
