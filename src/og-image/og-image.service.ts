@@ -26,7 +26,7 @@ export class OgImageService {
     ctx.textBaseline = 'middle';
 
     const IMAGE_X = 600 as const;
-    const IMAGE_Y = 400 as const;
+    const IMAGE_Y = 405 as const;
 
     ctx.fillText(title, IMAGE_X, IMAGE_Y);
 
