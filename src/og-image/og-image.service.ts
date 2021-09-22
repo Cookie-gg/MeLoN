@@ -12,10 +12,10 @@ export class OgImageService {
     const ctx = canvas.getContext('2d');
 
     const backgroundImage = await loadImage(
-      `${process.cwd()}/src/public/page-background.png`,
+      `${process.cwd()}/public/page-background.png`,
     );
     ctx.drawImage(backgroundImage, DX, DY, WIDTH, HEIGHT);
-    registerFont(`${process.cwd()}/src/public/JosefinSans-BoldItalic.ttf`, {
+    registerFont(`${process.cwd()}/public/JosefinSans-BoldItalic.ttf`, {
       family: 'Josefin Sans',
     });
     ctx.fillStyle = 'transparent';
@@ -24,11 +24,7 @@ export class OgImageService {
     ctx.fillStyle = '#1F1F1F';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-
-    const IMAGE_X = 600 as const;
-    const IMAGE_Y = 402.5 as const;
-
-    ctx.fillText(title, IMAGE_X, IMAGE_Y);
+    ctx.fillText(title, 600, Number(process.env.IMAGE_Y));
 
     const buffer = canvas.toBuffer();
     return buffer;
@@ -43,10 +39,10 @@ export class OgImageService {
     const ctx = canvas.getContext('2d');
 
     const backgroundImage = await loadImage(
-      `${process.cwd()}/src/public/article-background.png`,
+      `${process.cwd()}/public/article-background.png`,
     );
     ctx.drawImage(backgroundImage, DX, DY, WIDTH, HEIGHT);
-    registerFont(`${process.cwd()}/src/public/NotoSansJP-Bold.otf`, {
+    registerFont(`${process.cwd()}/public/NotoSansJP-Bold.otf`, {
       family: 'Noto Sans JP',
     });
     ctx.fillStyle = 'transparent';

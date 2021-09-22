@@ -12,11 +12,16 @@ import { SentenceModule } from './sentence/sentence.module';
 import { ImageModule } from './image/image.module';
 import { PathModule } from './path/path.module';
 import { OgImageModule } from './og-image/og-image.module';
+import { ConfigModule } from '@nestjs/config';
 
 mongoose.set('useFindAndModify', false);
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.PORT ? 'production' : 'development'}`,
+    }),
     MongooseModule.forRoot(
       'mongodb+srv://cookie-gg:x9378l1FmJp03opU@page-data.3y2of.mongodb.net/data?retryWrites=true&w=majority',
     ),
