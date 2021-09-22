@@ -6,20 +6,34 @@ import { Controller, Get, Header, HttpCode, Param, Res } from '@nestjs/common';
 export class OgImageController {
   constructor(private readonly ogImageService: OgImageService) {}
 
-  @Get('page/:title')
+  @Get('/page/:title/display')
   @HttpCode(200)
   @Header('Content-Type', 'image/png')
-  async ogPage(@Param('title') title: string, @Res() res: Response) {
-    const buffer = await this.ogImageService.page(title);
-    res.set('Content-Length', `${buffer.length}`);
-    return res.send(buffer);
+  async displayOgPage(@Param('title') title: string, @Res() res: Response) {
+    const data = await this.ogImageService.page(title);
+    res.set('Content-Length', `${data.buffer.length}`);
+    return res.send(data.buffer);
   }
-  @Get('article/:title')
+
+  @Get('/article/:title/display')
   @HttpCode(200)
   @Header('Content-Type', 'image/png')
-  async ogArticle(@Param('title') title: string, @Res() res: Response) {
-    const buffer = await this.ogImageService.article(title);
-    res.set('Content-Length', `${buffer.length}`);
-    return res.send(buffer);
+  async displayoOgArticle(@Param('title') title: string, @Res() res: Response) {
+    const data = await this.ogImageService.article(title);
+    res.set('Content-Length', `${data.buffer.length}`);
+    return res.send(data.buffer);
+  }
+
+  @Get('/page/:title')
+  @HttpCode(200)
+  async OgPage(@Param('title') title: string, @Res() res: Response) {
+    const data = await this.ogImageService.page(title);
+    return res.end(data.dataURL);
+  }
+  @Get('/article/:title')
+  @HttpCode(200)
+  async OgArticle(@Param('title') title: string, @Res() res: Response) {
+    const data = await this.ogImageService.article(title);
+    return res.send(data.dataURL);
   }
 }

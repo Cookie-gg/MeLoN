@@ -3,7 +3,7 @@ import { createCanvas, loadImage, registerFont } from 'canvas';
 
 @Injectable()
 export class OgImageService {
-  async page(title: string): Promise<Buffer> {
+  async page(title: string): Promise<{ buffer: Buffer; dataURL: string }> {
     const WIDTH = 1200 as const;
     const HEIGHT = 630 as const;
     const DX = 0 as const;
@@ -27,10 +27,11 @@ export class OgImageService {
     ctx.fillText(title, 600, Number(process.env.IMAGE_Y));
 
     const buffer = canvas.toBuffer();
-    return buffer;
+    const dataURL = canvas.toDataURL();
+    return { buffer, dataURL };
   }
 
-  async article(title: string): Promise<Buffer> {
+  async article(title: string): Promise<{ buffer: Buffer; dataURL: string }> {
     const WIDTH = 1200 as const;
     const HEIGHT = 630 as const;
     const DX = 0 as const;
@@ -65,6 +66,7 @@ export class OgImageService {
     ctx.fillText(linedText.join('\n'), 150, 315 - 25 * linedText.length);
 
     const buffer = canvas.toBuffer();
-    return buffer;
+    const dataURL = canvas.toDataURL();
+    return { buffer, dataURL };
   }
 }
