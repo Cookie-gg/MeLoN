@@ -11,7 +11,6 @@ import { TitleModule } from './title/title.module';
 import { SentenceModule } from './sentence/sentence.module';
 import { ImageModule } from './image/image.module';
 import { PathModule } from './path/path.module';
-import { OgImageModule } from './og-image/og-image.module';
 import { ConfigModule } from '@nestjs/config';
 
 mongoose.set('useFindAndModify', false);
@@ -40,7 +39,6 @@ mongoose.set('useFindAndModify', false);
     SentenceModule,
     ImageModule,
     PathModule,
-    OgImageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
