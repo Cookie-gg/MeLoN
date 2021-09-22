@@ -4,13 +4,13 @@ import { Controller, Get, Header, HttpCode, Param, Res } from '@nestjs/common';
 
 @Controller('og-image')
 export class OgImageController {
-  constructor(private readonly OgImageService: OgImageService) {}
+  constructor(private readonly ogImageService: OgImageService) {}
 
   @Get('page/:title')
   @HttpCode(200)
   @Header('Content-Type', 'image/png')
   async ogPage(@Param('title') title: string, @Res() res: Response) {
-    const buffer = await this.OgImageService.page(title);
+    const buffer = await this.ogImageService.page(title);
     res.set('Content-Length', `${buffer.length}`);
     return res.send(buffer);
   }
@@ -18,7 +18,7 @@ export class OgImageController {
   @HttpCode(200)
   @Header('Content-Type', 'image/png')
   async ogArticle(@Param('title') title: string, @Res() res: Response) {
-    const buffer = await this.OgImageService.article(title);
+    const buffer = await this.ogImageService.article(title);
     res.set('Content-Length', `${buffer.length}`);
     return res.send(buffer);
   }
