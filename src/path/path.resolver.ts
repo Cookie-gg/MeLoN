@@ -27,7 +27,7 @@ export class PathResolver {
   }
 
   @Mutation(() => PathObject)
-  async update(@Args('name') name: string, @Args('args') args: PathInput) {
+  async updatePath(@Args('name') name: string, @Args('args') args: PathInput) {
     return this.pathService.update(name, args);
   }
 }
