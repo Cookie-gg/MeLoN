@@ -12,6 +12,7 @@ import { TopicModule } from 'src/topic/topic.module';
         name: 'article',
         schema: new Schema({
           articleId: String,
+          published: Boolean,
           releaseDate: Date,
           updateDate: Date,
           title: String,

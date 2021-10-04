@@ -7,6 +7,8 @@ export class ArticleObject {
   id: string;
   @Field()
   readonly articleId: string;
+  @Field()
+  readonly published: boolean;
   @Field(() => Date)
   readonly releaseDate: Date;
   @Field(() => Date)
@@ -33,6 +35,8 @@ export class ArticleObject {
 export class ArticleInput {
   @Field()
   readonly articleId: string;
+  @Field()
+  readonly published: boolean;
   @Field(() => Date)
   readonly releaseDate: Date;
   @Field(() => Date)
@@ -51,6 +55,7 @@ export class ArticleInput {
 
 export interface ArticleType {
   readonly articleId: string;
+  readonly published: boolean;
   readonly releaseDate: Date;
   readonly updateDate: Date;
   readonly title: string;

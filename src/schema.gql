@@ -26,6 +26,7 @@ type TopicObject {
 type ArticleObject {
   id: ID!
   articleId: String!
+  published: Boolean!
   releaseDate: Timestamp!
   updateDate: Timestamp!
   title: String!
@@ -123,6 +124,7 @@ input TopicInput {
 
 input ArticleInput {
   articleId: String!
+  published: Boolean!
   releaseDate: Timestamp!
   updateDate: Timestamp!
   title: String!
