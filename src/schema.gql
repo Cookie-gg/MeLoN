@@ -14,6 +14,14 @@ type ListObject {
   section: String!
 }
 
+type PathObject {
+  id: ID!
+  name: String!
+  path: String!
+  icon: String!
+  order: Int
+}
+
 type TopicObject {
   id: ID!
   name: String!
@@ -52,25 +60,17 @@ type TitleObject {
   icon: String
 }
 
-type SentenceObject {
-  id: ID!
-  text: [String!]!
-  page: String!
-  section: String!
-}
-
 type ImageObject {
   id: ID!
   data: String!
   name: String!
 }
 
-type PathObject {
+type SentenceObject {
   id: ID!
-  name: String!
-  path: String!
-  icon: String!
-  order: Int
+  text: [String!]!
+  page: String!
+  section: String!
 }
 
 type Query {

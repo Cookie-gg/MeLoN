@@ -1,17 +1,18 @@
 import * as mongoose from 'mongoose';
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { ListModule } from './list/list.module';
+import { PathModule } from './path/path.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ListModule } from './list/list.module';
 import { TopicModule } from './topic/topic.module';
-import { ArticleModule } from './article/article.module';
 import { TitleModule } from './title/title.module';
-import { SentenceModule } from './sentence/sentence.module';
 import { ImageModule } from './image/image.module';
-import { PathModule } from './path/path.module';
-import { ConfigModule } from '@nestjs/config';
+import { ArticleModule } from './article/article.module';
+import { SentenceModule } from './sentence/sentence.module';
+import AppMiddleware from './app.middleware';
 
 mongoose.set('useFindAndModify', false);
 
@@ -30,6 +31,7 @@ mongoose.set('useFindAndModify', false);
         : '/tmp/schema.gql',
       buildSchemaOptions: {
         dateScalarMode: 'timestamp',
+        fieldMiddleware: [AppMiddleware],
       },
     }),
     ListModule,
