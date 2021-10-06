@@ -5,7 +5,7 @@ const AppMiddleware: FieldMiddleware = async (
   next: NextFn,
 ) => {
   if (process.env.PORT) {
-    ctx.context.req.headers.authorization === process.env.SECRET_KEY &&
+    ctx.context.req.headers.authorization === process.env.GRAPHQL_SECRET_KEY &&
       (await next());
   } else await next();
 };

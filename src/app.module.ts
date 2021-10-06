@@ -12,6 +12,7 @@ import { TitleModule } from './title/title.module';
 import { ImageModule } from './image/image.module';
 import { ArticleModule } from './article/article.module';
 import { SentenceModule } from './sentence/sentence.module';
+import { AdminModule } from './admin/admin.module';
 import AppMiddleware from './app.middleware';
 
 mongoose.set('useFindAndModify', false);
@@ -41,6 +42,7 @@ mongoose.set('useFindAndModify', false);
     SentenceModule,
     ImageModule,
     PathModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],
