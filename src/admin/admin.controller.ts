@@ -21,7 +21,7 @@ export class AdminController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Post('/refresh')
+  @Get('/refresh')
   refresh() {
     return this.adminService.sign();
   }

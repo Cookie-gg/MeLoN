@@ -9,7 +9,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   validate(username: string, password: string): boolean {
-    if (username === 'admin' && password == 'password') {
+    if (
+      username === process.env.ADMIN_NAME &&
+      password == process.env.ADMIN_PASSWORD
+    ) {
       return true;
     } else {
       throw new UnauthorizedException();

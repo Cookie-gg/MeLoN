@@ -13,7 +13,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  validate(payload: { isAdmin: boolean; refresh_token: string }) {
+  validate(payload: { isAdmin: boolean }) {
     if (payload.isAdmin === true) {
       return true;
     } else {

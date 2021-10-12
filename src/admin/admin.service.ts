@@ -6,7 +6,7 @@ export class AdminService {
   constructor(private readonly jwtService: JwtService) {}
   sign() {
     return {
-      access_token: this.jwtService.sign({ isAdmin: true }),
+      token: this.jwtService.sign({ isAdmin: true }),
     };
   }
 }
