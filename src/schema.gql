@@ -76,33 +76,33 @@ type SentenceObject {
 type Query {
   findList(section: String!, name: String!): ListObject!
   findListBySection(section: String!): [ListObject!]!
+  findPath(name: String!): PathObject!
+  findAllPaths: [PathObject!]!
+  findPathByOrder(order: Float!): PathObject!
   findTopic(name: String!): TopicObject!
   findAllTopics: [TopicObject!]!
   findArticles(latest: Boolean!): [ArticleObject!]!
   findAllArticles: [ArticleObject!]!
   findTitle(page: String!): [TitleObject!]!
-  findSentence(page: String!): [SentenceObject!]!
   findImage(name: String!): ImageObject!
-  findPath(name: String!): PathObject!
-  findAllPaths: [PathObject!]!
-  findPathByOrder(order: Float!): PathObject!
+  findSentence(page: String!): [SentenceObject!]!
 }
 
 type Mutation {
   addList(args: ListInput!): ListObject!
   updateList(args: ListInput!): ListObject!
+  addPath(args: PathInput!): PathObject!
+  updatePath(args: PathInput!, name: String!): PathObject!
   addTopic(args: TopicInput!): TopicObject!
   updateTopic(args: TopicInput!): TopicObject!
   addArticle(args: ArticleInput!): ArticleObject!
   updateArticle(args: ArticleInput!, id: String!): ArticleObject!
   addTitle(args: TitleInput!): TitleObject!
   updateTitle(args: TitleInput!): TitleObject!
-  addSentence(args: SentenceInput!): SentenceObject!
-  updateSentence(args: SentenceInput!): SentenceObject!
   addImage(args: ImageInput!): ImageObject!
   updateImage(args: ImageInput!): ImageObject!
-  addPath(args: PathInput!): PathObject!
-  updatePath(args: PathInput!, name: String!): PathObject!
+  addSentence(args: SentenceInput!): SentenceObject!
+  updateSentence(args: SentenceInput!): SentenceObject!
 }
 
 input ListInput {
@@ -114,6 +114,13 @@ input ListInput {
 input ListBodyInput {
   title: String!
   icon: String
+}
+
+input PathInput {
+  name: String!
+  path: String!
+  icon: String!
+  order: Int
 }
 
 input TopicInput {
@@ -141,20 +148,13 @@ input TitleInput {
   icon: String
 }
 
-input SentenceInput {
-  text: [String!]!
-  page: String!
-  section: String!
-}
-
 input ImageInput {
   data: String!
   name: String!
 }
 
-input PathInput {
-  name: String!
-  path: String!
-  icon: String!
-  order: Int
+input SentenceInput {
+  text: [String!]!
+  page: String!
+  section: String!
 }
