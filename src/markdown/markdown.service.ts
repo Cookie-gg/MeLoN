@@ -111,26 +111,36 @@ export class MarkdownService {
     await Promise.all(
       links.map(async (url: string) => {
         const ogLite = await parser(url);
-        console.log(ogLite);
-        const title: string =
-          ogLite.title ||
-          (ogLite.ogp['og:site_name'] && ogLite.ogp['og:site_name'][0]) ||
-          'no-title';
-        const description: string =
-          ogLite.seo.description ||
-          (ogLite.seo[`${title.toLowerCase()}:description`] &&
-            ogLite.seo[`${title.toLowerCase()}:description`][0]) ||
-          'no-description';
-        const ogImage = (ogLite.seo[`${title.toLowerCase()}:image`] ||
-          ogLite.ogp['og:image'] || [false])[0];
+        // console.log(ogLite);
+        const title: string = ([ogLite.title] || [
+            `${ogLite.ogp['og:site_name']} | ${ogLite.ogp['og:title']}`,
+          ] || ['no-title'])[0];
+        const description: string = (ogLite.seo.description ||
+          (ogLite.ogp['og:site_name'] &&
+            ogLite.seo[
+              `${(
+                ogLite.ogp['og:site_name'][0] as string
+              ).toLowerCase()}:description`
+            ]) || ['no-description'])[0];
+        const ogIcon = ((ogLite.ogp['og:site_name'] &&
+          ogLite.seo[
+            `${ogLite.ogp['og:site_name'][0].toLowerCase()}:image`
+          ]) || [false])[0];
+        const ogImage = (ogLite.ogp['og:image'] || [false])[0];
 
         data = data.replace(
           `<p>${url}</p>`,
-          `<div class="link_card"><a href="${url}" target="_blank" rel="noopener noreferrer"><div class="text_wrapper"><div class="title">${title}</div><div class="description">${description}</div><div class="domain"><img src="https://www.google.com/s2/favicons?domain=${
+          `<div class="link_card ${ogImage && 'image'} ${ogIcon && 'icon'} ${
+            ogImage && ogIcon && 'both'
+          }"><a href="${url}" target="_blank" rel="noopener noreferrer"><div class="text_wrapper"><div class="title">${title}</div><div class="description">${description}</div><div class="domain"><img src="https://www.google.com/s2/favicons?domain=${
             url.split('/')[2]
           }" alt="favicon" />${url.split('/')[2]}</div>${
             ogImage
-              ? `</div><img src="${ogImage}" alt="ogp_icon" /><img src="${ogImage}" alt="ogp_image" /></a></div>`
+              ? ogIcon
+                ? `</div><img src="${ogImage}" alt="ogp_image" /><img src="${ogIcon}" alt="ogp_icon" /></a></div>`
+                : `</div><img src="${ogImage}" alt="ogp_image" /></a></div>`
+              : ogIcon
+              ? `</div><img src="${ogIcon}" alt="ogp_image" /></a></div>`
               : ''
           }`,
         );
