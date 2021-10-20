@@ -24,6 +24,7 @@ export class MarkdownService {
       ? data.split(/\r\n|\r|\n/)
       : [data];
     const links: string[] = [];
+
     data = md.render(
       lineByLine
         .map((value: string, i: number) => {
@@ -59,7 +60,6 @@ export class MarkdownService {
                 close
               );
           }
-
           // リンクカード対応
           else if (
             value.indexOf('https://') === 0 ||
@@ -68,7 +68,6 @@ export class MarkdownService {
             links.push(value);
             return value;
           }
-
           // 他
           else return value;
         })
@@ -103,15 +102,27 @@ export class MarkdownService {
     }
     // リンクカード対応
     if (links.length > 0) data = await this.linkCard(data, links);
-
-    return unescapeAll(data);
+    // unescapeAll
+    data = unescapeAll(data);
+    // comment out
+    const commentOuts = data.match(
+      /\<code.*?\>\n*.*?\n*\<!--.*?--\>\n*.*?\n*\<\/code\>/g,
+    );
+    if (commentOuts) {
+      commentOuts.forEach((co) => {
+        data = data.replaceAll(
+          co,
+          co.replaceAll('<!--', '&lt;!--').replaceAll('-->', '--&gt;'),
+        );
+      });
+    }
+    return data;
   }
   async linkCard(data: string, links: string[]): Promise<string> {
     const parser = require('ogp-parser');
     await Promise.all(
       links.map(async (url: string) => {
         const ogLite = await parser(url);
-        // console.log(ogLite);
         const title: string = ([ogLite.title] || [
             `${ogLite.ogp['og:site_name']} | ${ogLite.ogp['og:title']}`,
           ] || ['no-title'])[0];
@@ -146,6 +157,7 @@ export class MarkdownService {
         );
       }),
     );
+
     return data;
   }
   config() {
