@@ -2,26 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type ListBodyObject {
-  title: String!
-  icon: String
-}
-
-type ListObject {
-  id: ID!
-  list: [ListBodyObject!]!
-  name: String!
-  section: String!
-}
-
-type PathObject {
-  id: ID!
-  name: String!
-  path: String!
-  icon: String!
-  order: Int
-}
-
 type TopicObject {
   id: ID!
   name: String!
@@ -52,75 +32,18 @@ type ArticleObject {
 """
 scalar Timestamp
 
-type TitleObject {
-  id: ID!
-  text: String!
-  page: String!
-  section: String!
-  icon: String
-}
-
-type ImageObject {
-  id: ID!
-  data: String!
-  name: String!
-}
-
-type SentenceObject {
-  id: ID!
-  text: [String!]!
-  page: String!
-  section: String!
-}
-
 type Query {
-  findList(section: String!, name: String!): ListObject!
-  findListBySection(section: String!): [ListObject!]!
-  findPath(name: String!): PathObject!
-  findAllPaths: [PathObject!]!
-  findPathByOrder(order: Float!): PathObject!
   findTopic(name: String!): TopicObject!
   findAllTopics: [TopicObject!]!
   findArticles(latest: Boolean!): [ArticleObject!]!
   findAllArticles: [ArticleObject!]!
-  findTitle(page: String!): [TitleObject!]!
-  findImage(name: String!): ImageObject!
-  findSentence(page: String!): [SentenceObject!]!
 }
 
 type Mutation {
-  addList(args: ListInput!): ListObject!
-  updateList(args: ListInput!): ListObject!
-  addPath(args: PathInput!): PathObject!
-  updatePath(args: PathInput!, name: String!): PathObject!
   addTopic(args: TopicInput!): TopicObject!
   updateTopic(args: TopicInput!): TopicObject!
   addArticle(args: ArticleInput!): ArticleObject!
   updateArticle(args: ArticleInput!, id: String!): ArticleObject!
-  addTitle(args: TitleInput!): TitleObject!
-  updateTitle(args: TitleInput!): TitleObject!
-  addImage(args: ImageInput!): ImageObject!
-  updateImage(args: ImageInput!): ImageObject!
-  addSentence(args: SentenceInput!): SentenceObject!
-  updateSentence(args: SentenceInput!): SentenceObject!
-}
-
-input ListInput {
-  list: [ListBodyInput!]!
-  name: String!
-  section: String!
-}
-
-input ListBodyInput {
-  title: String!
-  icon: String
-}
-
-input PathInput {
-  name: String!
-  path: String!
-  icon: String!
-  order: Int
 }
 
 input TopicInput {
@@ -139,22 +62,4 @@ input ArticleInput {
   type: String!
   topics: [String!]!
   body: String!
-}
-
-input TitleInput {
-  text: String!
-  page: String!
-  section: String!
-  icon: String
-}
-
-input ImageInput {
-  data: String!
-  name: String!
-}
-
-input SentenceInput {
-  text: [String!]!
-  page: String!
-  section: String!
 }

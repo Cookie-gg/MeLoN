@@ -3,18 +3,14 @@ import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import AppMiddleware from './app.middleware';
 import { ConfigModule } from '@nestjs/config';
-import { ListModule } from './list/list.module';
-import { PathModule } from './path/path.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TopicModule } from './topic/topic.module';
-import { TitleModule } from './title/title.module';
-import { ImageModule } from './image/image.module';
 import { AdminModule } from './admin/admin.module';
 import { ArticleModule } from './article/article.module';
-import { SentenceModule } from './sentence/sentence.module';
 import { MarkdownModule } from './markdown/markdown.module';
+import { MailModule } from './mail/mail.module';
 
 mongoose.set('useFindAndModify', false);
 
@@ -36,15 +32,11 @@ mongoose.set('useFindAndModify', false);
         fieldMiddleware: [AppMiddleware],
       },
     }),
-    ListModule,
-    PathModule,
     AdminModule,
     TopicModule,
-    TitleModule,
-    ImageModule,
     ArticleModule,
-    SentenceModule,
     MarkdownModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

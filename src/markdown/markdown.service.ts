@@ -145,7 +145,7 @@ export class MarkdownService {
             ogImage && ogIcon && 'both'
           }"><a href="${url}" target="_blank" rel="noopener noreferrer"><div class="text_wrapper"><div class="title">${title}</div><div class="description">${description}</div><div class="domain"><img src="https://www.google.com/s2/favicons?domain=${
             url.split('/')[2]
-          }" alt="favicon" />${url.split('/')[2]}</div>${
+          }" alt="favicon" /><span>${url.split('/')[2]}</span></div>${
             ogImage
               ? ogIcon
                 ? `</div><img src="${ogImage}" alt="ogp_image" /><img src="${ogIcon}" alt="ogp_icon" /></a></div>`
