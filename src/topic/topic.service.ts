@@ -27,7 +27,7 @@ export class TopicService {
   async findAllTopics(): Promise<TopicType[]> {
     const allTopics = await this.model.find();
     return allTopics.filter(
-      (topic) => !(topic.name === 'tech') && !(topic.name === 'idea'),
+      (topic) => topic.name !== 'tech' && topic.name !== 'idea',
     );
   }
 

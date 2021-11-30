@@ -10,30 +10,29 @@ export class ArticleService {
     @InjectModel('article') private readonly model: Model<ArticleType>,
   ) {}
 
-  async create(dto: ArticleInput): Promise<ArticleType> {
-    const article = await this.model.findOne({ title: dto.title });
-    if (article) {
-      throw new NotFoundException(`Do not post used title.`);
-    } else {
+  async change(id: string, dto: ArticleInput): Promise<ArticleType> {
+    const article = await this.model.findById(id);
+    // update
+    if (article) return await this.model.findByIdAndUpdate(id, dto);
+    // create
+    else {
       const newArticle = new this.model(dto);
       return await newArticle.save();
     }
   }
 
-  async find(latest: boolean): Promise<ArticleType[]> {
-    const articles = releaseSort(await this.model.find());
-    if (!articles) {
-      throw new NotFoundException(`There is no articles.`);
+  async findByArticleId(articleId: string): Promise<ArticleType> {
+    const article = await this.model.findOne({ articleId });
+    if (!article) {
+      throw new NotFoundException(
+        `A article has id:${articleId} is not found.`,
+      );
     }
-    if (latest) {
-      return articles.slice(0, 4);
-    } else {
-      return articles.slice(4);
-    }
+    return article;
   }
 
   async findAll(): Promise<ArticleType[]> {
-    const articles = await this.model.find();
+    const articles = releaseSort(await this.model.find());
     if (!articles) {
       throw new NotFoundException(`There is no articles.`);
     }
@@ -86,10 +85,10 @@ export class ArticleService {
     }
   }
 
-  async update(id: string, dto: ArticleInput): Promise<ArticleType> {
+  async delete(id: string): Promise<ArticleType> {
     const article = await this.model.findById(id);
     if (!article) {
       throw new NotFoundException(`A article has id:${id} is not found.`);
-    } else return await this.model.findByIdAndUpdate(id, dto);
+    } else return await this.model.findByIdAndUpdate(id);
   }
 }

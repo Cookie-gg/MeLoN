@@ -26,7 +26,9 @@ export class ArticleObject {
   @Field(() => [TopicObject])
   readonly topicIcons: TopicObject[];
   @Field()
-  readonly body: string;
+  readonly markdown: string;
+  @Field()
+  readonly html: string;
   @Field(() => [ArticleObject])
   readonly relations: ArticleObject[];
 }
@@ -50,7 +52,9 @@ export class ArticleInput {
   @Field(() => [String])
   readonly topics: string[];
   @Field()
-  readonly body: string;
+  readonly markdown: string;
+  @Field()
+  readonly html: string;
 }
 
 export interface ArticleType {
@@ -64,6 +68,7 @@ export interface ArticleType {
   readonly topics: string[];
   readonly typeIcon: TopicType;
   readonly topicIcons: TopicType[];
-  readonly body: string;
+  readonly markdown: string;
+  readonly html: string;
   readonly relations: ArticleType[];
 }

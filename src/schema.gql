@@ -23,7 +23,8 @@ type ArticleObject {
   topics: [String!]!
   typeIcon: TopicObject!
   topicIcons: [TopicObject!]!
-  body: String!
+  markdown: String!
+  html: String!
   relations: [ArticleObject!]!
 }
 
@@ -35,15 +36,15 @@ scalar Timestamp
 type Query {
   findTopic(name: String!): TopicObject!
   findAllTopics: [TopicObject!]!
-  findArticles(latest: Boolean!): [ArticleObject!]!
+  findArticle(articleId: String!): ArticleObject!
   findAllArticles: [ArticleObject!]!
 }
 
 type Mutation {
   addTopic(args: TopicInput!): TopicObject!
   updateTopic(args: TopicInput!): TopicObject!
-  addArticle(args: ArticleInput!): ArticleObject!
-  updateArticle(args: ArticleInput!, id: String!): ArticleObject!
+  changeArticle(args: ArticleInput!, id: String!): ArticleObject!
+  deleteArticle(id: String!): ArticleObject!
 }
 
 input TopicInput {
@@ -61,5 +62,6 @@ input ArticleInput {
   emoji: String!
   type: String!
   topics: [String!]!
-  body: String!
+  markdown: String!
+  html: String!
 }

@@ -19,13 +19,16 @@ export class ArticleResolver {
   ) {}
 
   @Mutation(() => ArticleObject)
-  async addArticle(@Args('args') args: ArticleInput) {
-    return this.articleService.create(args);
+  async changeArticle(
+    @Args('id') id: string,
+    @Args('args') args: ArticleInput,
+  ) {
+    return this.articleService.change(id, args);
   }
 
-  @Query(() => [ArticleObject])
-  async findArticles(@Args('latest') latest: boolean) {
-    return this.articleService.find(latest);
+  @Query(() => ArticleObject)
+  async findArticle(@Args('articleId') articleId: string) {
+    return this.articleService.findByArticleId(articleId);
   }
 
   @Query(() => [ArticleObject])
@@ -53,10 +56,7 @@ export class ArticleResolver {
   }
 
   @Mutation(() => ArticleObject)
-  async updateArticle(
-    @Args('id') id: string,
-    @Args('args') args: ArticleInput,
-  ) {
-    return this.articleService.update(id, args);
+  async deleteArticle(@Args('id') id: string) {
+    return this.articleService.delete(id);
   }
 }
