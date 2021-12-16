@@ -14,6 +14,12 @@ export class AdminController {
     return this.adminService.sign();
   }
 
+  @Get('/logout')
+  logout() {
+    this.adminService.sign();
+    return true;
+  }
+
   @UseGuards(AuthGuard('jwt'))
   @Get('/status')
   status() {
