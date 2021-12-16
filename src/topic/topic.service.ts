@@ -7,35 +7,33 @@ import { TopicInput, TopicType } from './topic.model';
 export class TopicService {
   constructor(@InjectModel('topic') private readonly model: Model<TopicType>) {}
 
+  // creat one topic
   async create(dto: TopicInput): Promise<TopicType> {
     const topic = await this.model.findOne({ name: dto.name });
-    if (topic) {
+    if (topic)
       throw new NotFoundException(`There is already ${dto.name} topic.`);
-    }
-    const newTopic = new this.model(dto);
-    return await newTopic.save();
+    return await new this.model(dto).save();
   }
 
-  async find(name: string): Promise<TopicType> {
+  // find one topic
+  async findOne(name: string): Promise<TopicType> {
     const topic = await this.model.findOne({ name });
-    if (!topic) {
-      throw new NotFoundException(`${name} topic is not found.`);
-    }
+    if (!topic) throw new NotFoundException(`${name} topic is not found.`);
     return topic;
   }
 
-  async findAllTopics(): Promise<TopicType[]> {
-    const allTopics = await this.model.find();
-    return allTopics.filter(
+  // find all topics
+  async findAll(): Promise<TopicType[]> {
+    const all = await this.model.find();
+    return all.filter(
       (topic) => topic.name !== 'tech' && topic.name !== 'idea',
     );
   }
 
+  // update one topic
   async update(dto: TopicInput): Promise<TopicType> {
     const topic = await this.model.findOne({ name: dto.name });
-    if (!topic) {
-      throw new NotFoundException(`${dto.name} topic is not found.`);
-    }
+    if (!topic) throw new NotFoundException(`${dto.name} topic is not found.`);
     return await this.model.findOneAndUpdate(
       { name: dto.name },
       { displayName: dto.displayName, icon: dto.icon },

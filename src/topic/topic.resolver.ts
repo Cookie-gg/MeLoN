@@ -25,12 +25,12 @@ export class TopicResolver {
 
   @Query(() => TopicObject)
   async findTopic(@Args('name') name: string) {
-    return this.topicService.find(name);
+    return this.topicService.findOne(name);
   }
 
   @Query(() => [TopicObject])
   async findAllTopics() {
-    return this.topicService.findAllTopics();
+    return this.topicService.findAll();
   }
 
   @ResolveField(() => [ArticleObject])
