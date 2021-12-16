@@ -38,6 +38,8 @@ type Query {
   findAllTopics: [TopicObject!]!
   findArticle(articleId: String!): ArticleObject!
   findAllArticles: [ArticleObject!]!
+  findMoreArticles(current: String!): [ArticleObject!]!
+  countAllArticles: Int!
 }
 
 type Mutation {
