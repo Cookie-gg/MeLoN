@@ -10,18 +10,19 @@ export class ArticleService {
     @InjectModel('article') private readonly model: Model<ArticleType>,
   ) {}
 
+  // create and update
   async change(id: string, dto: ArticleInput): Promise<ArticleType> {
-    const article = await this.model.findById(id);
     // update
-    if (article) return await this.model.findByIdAndUpdate(id, dto);
-    // create
-    else {
-      const newArticle = new this.model(dto);
-      return await newArticle.save();
+    if (id !== '') {
+      const article = await this.model.findById(id);
+      if (article) return await this.model.findByIdAndUpdate(id, dto);
     }
+    // create
+    else return await new this.model(dto).save();
   }
 
-  async findByArticleId(articleId: string): Promise<ArticleType> {
+  // find one by article id
+  async findOne(articleId: string): Promise<ArticleType> {
     const article = await this.model.findOne({ articleId });
     if (!article) {
       throw new NotFoundException(
@@ -31,64 +32,67 @@ export class ArticleService {
     return article;
   }
 
+  // find all
   async findAll(): Promise<ArticleType[]> {
-    const articles = releaseSort(await this.model.find());
-    if (!articles) {
-      throw new NotFoundException(`There is no articles.`);
-    }
-    return articles;
+    const all = releaseSort(await this.model.find());
+    if (!all) throw new NotFoundException(`There is no articles.`);
+    return all;
   }
 
+  // find more
+  async findMore(current: number): Promise<ArticleType[]> {
+    const all = releaseSort(await this.model.find());
+    return all.slice(current, current + 4);
+  }
+
+  // count all
+  async countAll(): Promise<number> {
+    return (await this.model.find()).length;
+  }
+
+  // find relations by topics one article has
   async findRelations(id: string, topics: string[]): Promise<ArticleType[]> {
-    const articles = releaseSort(await this.model.find()); // get all articles
-    if (!articles) {
-      throw new NotFoundException(`There is no articles.`); // non null check
-    }
+    const all = releaseSort(await this.model.find());
+    if (!all) throw new NotFoundException(`There is no articles.`);
     const relations: ArticleType[] = []; // variable to be pushed relation articles
-    articles.forEach((article) => {
+    all.forEach((article) => {
       for (let i = 0; i < topics.length; i++) {
         if (article.topics.some((topic) => topic === topics[i])) {
-          if (article.id === id) break;
+          if (article.id === id) break; // in case of an article which has already pushed
           relations.push(article);
           break;
         }
       }
     });
-    return relations.slice(0, relations.length >= 4 ? 4 : 2);
+    return relations.slice(0, 4);
   }
 
-  async findByTopic(
-    targetTopic: string,
-    isSome?: boolean,
-  ): Promise<ArticleType[]> {
-    const articles = releaseSort(await this.model.find());
-    if (!articles) {
+  // find by one topic
+  async findByTopic(target: string, isSome?: boolean): Promise<ArticleType[]> {
+    const all = releaseSort(await this.model.find());
+    if (!all) {
       throw new NotFoundException(`There is no articles.`);
     }
-    const targetArticles: ArticleType[] = [];
-    if (targetTopic === 'tech' || targetTopic === 'idea') {
-      articles.forEach((article) => {
-        if (article.type === targetTopic) {
-          targetArticles.push(article);
-        }
-      });
+    const targets: ArticleType[] = [];
+    if (target === 'tech' || target === 'idea') {
+      all.forEach(
+        (article) => article.type === target && targets.push(article),
+      );
     } else {
-      articles.forEach((article) => {
-        if (article.topics.some((topic) => topic === targetTopic))
-          targetArticles.push(article);
-      });
+      all.forEach(
+        (article) =>
+          article.topics.some((topic) => topic === target) &&
+          targets.push(article),
+      );
     }
-    if (isSome) {
-      return targetArticles.slice(0, 3);
-    } else {
-      return targetArticles;
-    }
+    return isSome ? targets.slice(0, 3) : targets;
   }
 
+  // delete one
   async delete(id: string): Promise<ArticleType> {
     const article = await this.model.findById(id);
-    if (!article) {
+    if (!article)
       throw new NotFoundException(`A article has id:${id} is not found.`);
-    } else return await this.model.findByIdAndUpdate(id);
+    return await this.model.findByIdAndDelete(id);
   }
 }

@@ -1,5 +1,6 @@
 import {
   Args,
+  Int,
   Mutation,
   Parent,
   Query,
@@ -23,40 +24,48 @@ export class ArticleResolver {
     @Args('id') id: string,
     @Args('args') args: ArticleInput,
   ) {
-    return this.articleService.change(id, args);
+    return await this.articleService.change(id, args);
   }
 
   @Query(() => ArticleObject)
   async findArticle(@Args('articleId') articleId: string) {
-    return this.articleService.findByArticleId(articleId);
+    return await this.articleService.findOne(articleId);
   }
 
   @Query(() => [ArticleObject])
   async findAllArticles() {
-    return this.articleService.findAll();
+    return await this.articleService.findAll();
+  }
+
+  @Query(() => [ArticleObject])
+  async findMoreArticles(@Args('current') current: string) {
+    return await this.articleService.findMore(Number(current));
+  }
+
+  @Query(() => Int)
+  async countAllArticles() {
+    return await this.articleService.countAll();
   }
 
   @ResolveField(() => TopicObject)
   async typeIcon(@Parent() article: ArticleObject) {
-    const type = await this.topicService.find(article.type);
-    return type;
+    return await this.topicService.findOne(article.type);
   }
 
   @ResolveField(() => [TopicObject])
   async topicIcons(@Parent() article: ArticleObject) {
-    const topics = article.topics.map(
-      async (el) => await this.topicService.find(el.toLowerCase()),
+    return article.topics.map(
+      async (el) => await this.topicService.findOne(el.toLowerCase()),
     );
-    return topics;
   }
 
   @ResolveField(() => [ArticleObject])
   async relations(@Parent() article: ArticleObject) {
-    return this.articleService.findRelations(article.id, article.topics);
+    return await this.articleService.findRelations(article.id, article.topics);
   }
 
   @Mutation(() => ArticleObject)
   async deleteArticle(@Args('id') id: string) {
-    return this.articleService.delete(id);
+    return await this.articleService.delete(id);
   }
 }
