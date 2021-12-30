@@ -63,7 +63,7 @@ import * as dotenv from 'dotenv';
     {},
     ...Object.keys(reactEmojiRender as { [key: string]: string }).map(
       (key) => ({
-        [key.replaceAll('-', '').replaceAll('_', '')]: reactEmojiRender[key],
+        [key.replaceAll(/\-|_/g, '')]: reactEmojiRender[key],
       }),
     ),
   );
@@ -86,15 +86,11 @@ import * as dotenv from 'dotenv';
           name: key,
           emojis: twemojiJson[key]
             .filter(
-              (emoji) =>
-                emojiSet[emoji.name.replaceAll('-', '').replaceAll('_', '')] &&
-                emoji,
+              (emoji) => emojiSet[emoji.name.replaceAll(/\-|_/g, '')] && emoji,
             )
             .map((emoji) => ({
               name: emoji.name.replaceAll('_', '-'),
-              text: emojiSet[
-                emoji.name.replaceAll('-', '').replaceAll('_', '')
-              ],
+              text: emojiSet[emoji.name.replaceAll(/\-|_/g, '')],
               unicode: emoji.unicode,
               keywords: emoji.keywords,
             })),
