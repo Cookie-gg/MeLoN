@@ -11,6 +11,7 @@ import { AdminModule } from './admin/admin.module';
 import { ArticleModule } from './article/article.module';
 import { MarkdownModule } from './markdown/markdown.module';
 import { MailModule } from './mail/mail.module';
+import { IconModule } from './icon/icon.module';
 
 mongoose.set('useFindAndModify', false);
 
@@ -37,6 +38,7 @@ mongoose.set('useFindAndModify', false);
     ArticleModule,
     MarkdownModule,
     MailModule,
+    IconModule,
   ],
   controllers: [AppController],
   providers: [AppService],
