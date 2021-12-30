@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     steps:
       - name: Checkout repository
@@ -33,10 +33,9 @@ jobs:
         run: node dist/generateTwemoji.js
 
       - name: Setup gcloud
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/deploy-cloudrun@v0
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
       - name: Deploy App to GAE
         run: gcloud app deploy --quiet

@@ -16,10 +16,6 @@ export class IconController {
     return this.iconService.twemoji(search);
   }
 
-  @Get('test')
-  test() {
-    return this.iconService.test();
-  }
   @Get('collections')
   collections() {
     return this.iconService.collections();

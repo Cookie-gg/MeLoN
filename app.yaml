@@ -3,3 +3,5 @@ env: standard
 runtime: nodejs16
 
 entrypoint: npm run start:prod
+
+instance_class: F2
