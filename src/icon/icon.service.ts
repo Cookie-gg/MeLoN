@@ -6,20 +6,23 @@ import type { IconObject } from 'src/types/common';
 
 @Injectable()
 export class IconService {
+  test() {
+    console.log(process.cwd());
+    console.log(__dirname);
+  }
   async collections(): Promise<string[]> {
     const readFile = util.promisify(fs.readFile);
-    console.log(process.cwd());
-    // return Object.keys(
-    //   JSON.parse(
-    //     await readFile(
-    //       path.join(
-    //         process.cwd(),
-    //         'node_modules/@iconify/json/collections.json',
-    //       ),
-    //       'utf-8',
-    //     ),
-    //   ),
-    // );
+    return Object.keys(
+      JSON.parse(
+        await readFile(
+          path.join(
+            process.cwd(),
+            'node_modules/@iconify/json/collections.json',
+          ),
+          'utf-8',
+        ),
+      ),
+    );
   }
   async find(search?: string) {
     const readFile = util.promisify(fs.readFile);
