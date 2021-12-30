@@ -55,8 +55,6 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "prismjs": "^1.25.0",
-    "react-emoji-render": "^1.2.4",
-    "react-twemoji-picker": "github:brianhung/emojipicker",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6"
@@ -81,6 +79,8 @@
     "eslint-plugin-prettier": "^3.3.1",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
+    "react-emoji-render": "^1.2.4",
+    "react-twemoji-picker": "github:brianhung/emojipicker",
     "supertest": "^6.1.3",
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.18",
