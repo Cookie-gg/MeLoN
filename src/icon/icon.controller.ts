@@ -20,4 +20,8 @@ export class IconController {
   test() {
     return this.iconService.test();
   }
+  @Get('collections')
+  collections() {
+    return this.iconService.collections();
+  }
 }
