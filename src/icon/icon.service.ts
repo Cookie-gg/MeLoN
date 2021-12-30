@@ -6,8 +6,20 @@ import type { IconObject } from 'src/types/common';
 
 @Injectable()
 export class IconService {
-  test() {
-    return `${process.cwd()} ${__dirname}`;
+  async test() {
+    const readFile = util.promisify(fs.readFile);
+    return Object.keys(
+      JSON.parse(
+        await readFile(
+          path.join(
+            process.cwd(),
+            'node_modules/@iconify/json/json',
+            'bx.json',
+          ),
+          'utf-8',
+        ),
+      ),
+    );
   }
   async collections(): Promise<string[]> {
     const readFile = util.promisify(fs.readFile);
