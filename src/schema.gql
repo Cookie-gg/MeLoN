@@ -23,6 +23,7 @@ type ArticleObject {
   topics: [String!]!
   typeIcon: TopicObject!
   topicIcons: [TopicObject!]!
+  allTopics: [TopicObject!]!
   markdown: String!
   html: String!
   relations: [ArticleObject!]!
