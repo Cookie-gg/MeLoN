@@ -7,8 +7,7 @@ import type { IconObject } from 'src/types/common';
 @Injectable()
 export class IconService {
   test() {
-    console.log(process.cwd());
-    console.log(__dirname);
+    return `${process.cwd()} ${__dirname}`;
   }
   async collections(): Promise<string[]> {
     const readFile = util.promisify(fs.readFile);
