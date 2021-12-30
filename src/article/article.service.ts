@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { releaseSort } from 'src/common';
+import { releaseSort, topicSort } from 'src/common';
 import { ArticleInput, ArticleType } from './article.model';
 
 @Injectable()
@@ -23,7 +23,9 @@ export class ArticleService {
 
   // find one by article id
   async findOne(articleId: string): Promise<ArticleType> {
-    const article = await this.model.findOne({ articleId });
+    const article = await this.model
+      .findOne({ articleId })
+      .map((el) => topicSort(el));
     if (!article) {
       throw new NotFoundException(
         `A article has id:${articleId} is not found.`,
@@ -34,14 +36,14 @@ export class ArticleService {
 
   // find all
   async findAll(): Promise<ArticleType[]> {
-    const all = releaseSort(await this.model.find());
+    const all = releaseSort(await this.model.find()).map((el) => topicSort(el));
     if (!all) throw new NotFoundException(`There is no articles.`);
     return all;
   }
 
   // find more
   async findMore(current: number): Promise<ArticleType[]> {
-    const all = releaseSort(await this.model.find());
+    const all = releaseSort(await this.model.find()).map((el) => topicSort(el));
     return all.slice(current, current + 4);
   }
 
@@ -52,7 +54,7 @@ export class ArticleService {
 
   // find relations by topics one article has
   async findRelations(id: string, topics: string[]): Promise<ArticleType[]> {
-    const all = releaseSort(await this.model.find());
+    const all = releaseSort(await this.model.find()).map((el) => topicSort(el));
     if (!all) throw new NotFoundException(`There is no articles.`);
     const relations: ArticleType[] = []; // variable to be pushed relation articles
     all.forEach((article) => {

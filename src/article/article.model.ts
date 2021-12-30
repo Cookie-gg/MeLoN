@@ -25,6 +25,8 @@ export class ArticleObject {
   readonly typeIcon: TopicObject;
   @Field(() => [TopicObject])
   readonly topicIcons: TopicObject[];
+  @Field(() => [TopicObject])
+  readonly allTopics: TopicObject[];
   @Field()
   readonly markdown: string;
   @Field()

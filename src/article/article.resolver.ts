@@ -59,6 +59,11 @@ export class ArticleResolver {
     );
   }
 
+  @ResolveField(() => [TopicObject])
+  async allTopics() {
+    return await this.topicService.findAll();
+  }
+
   @ResolveField(() => [ArticleObject])
   async relations(@Parent() article: ArticleObject) {
     return await this.articleService.findRelations(article.id, article.topics);

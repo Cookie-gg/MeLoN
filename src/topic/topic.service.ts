@@ -25,9 +25,10 @@ export class TopicService {
   // find all topics
   async findAll(): Promise<TopicType[]> {
     const all = await this.model.find();
-    return all.filter(
-      (topic) => topic.name !== 'tech' && topic.name !== 'idea',
-    );
+    return all
+      .filter((topic) => topic.name !== 'tech' && topic.name !== 'idea')
+      .slice()
+      .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
   }
 
   // update one topic

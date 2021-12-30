@@ -7,3 +7,8 @@ export function releaseSort<T>(data: T[]) {
     },
   );
 }
+
+export function topicSort<T>(data: T & { topics: string[] }) {
+  data.topics = data.topics.sort((a, b) => (a > b ? 1 : a < b ? -1 : 0));
+  return data;
+}
