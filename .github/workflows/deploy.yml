@@ -33,7 +33,7 @@ jobs:
         run: node dist/generateTwemoji.js
 
       - name: Setup gcloud
-        uses: google-github-actions/auth@v0'
+        uses: 'google-github-actions/auth@v0'
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
