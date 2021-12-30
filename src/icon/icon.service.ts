@@ -8,17 +8,18 @@ import type { IconObject } from 'src/types/common';
 export class IconService {
   async collections(): Promise<string[]> {
     const readFile = util.promisify(fs.readFile);
-    return Object.keys(
-      JSON.parse(
-        await readFile(
-          path.join(
-            process.cwd(),
-            'node_modules/@iconify/json/collections.json',
-          ),
-          'utf-8',
-        ),
-      ),
-    );
+    console.log(process.cwd());
+    // return Object.keys(
+    //   JSON.parse(
+    //     await readFile(
+    //       path.join(
+    //         process.cwd(),
+    //         'node_modules/@iconify/json/collections.json',
+    //       ),
+    //       'utf-8',
+    //     ),
+    //   ),
+    // );
   }
   async find(search?: string) {
     const readFile = util.promisify(fs.readFile);

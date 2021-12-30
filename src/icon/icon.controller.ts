@@ -15,4 +15,9 @@ export class IconController {
   twemoji(@Query('search') search?: string) {
     return this.iconService.twemoji(search);
   }
+
+  @Get('test')
+  test() {
+    return this.iconService.collections();
+  }
 }
