@@ -28,6 +28,9 @@ jobs:
         run: |
           npm i
           npm run build
+      
+      - name: Generate Twemoji as a json file
+        run: node dist/generateTwemoji.js
 
       - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@master
