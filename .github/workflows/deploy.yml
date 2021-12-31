@@ -29,7 +29,7 @@ jobs:
           npm i
           npm run build
 
-      - name: Generate twemoji.jsonjson
+      - name: Generate twemoji.json
         run: node dist/generateTwemoji.js
 
       - name: Setup gcloud
