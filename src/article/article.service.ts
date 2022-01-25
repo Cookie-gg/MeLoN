@@ -6,9 +6,7 @@ import { ArticleInput, ArticleType } from './article.model';
 
 @Injectable()
 export class ArticleService {
-  constructor(
-    @InjectModel('article') private readonly model: Model<ArticleType>,
-  ) {}
+  constructor(@InjectModel('article') private readonly model: Model<ArticleType>) {}
 
   // create and update
   async change(id: string, dto: ArticleInput): Promise<ArticleType> {
@@ -23,13 +21,9 @@ export class ArticleService {
 
   // find one by article id
   async findOne(articleId: string): Promise<ArticleType> {
-    const article = await this.model
-      .findOne({ articleId })
-      .map((el) => topicSort(el));
+    const article = await this.model.findOne({ articleId }).map((el) => topicSort(el));
     if (!article) {
-      throw new NotFoundException(
-        `A article has id:${articleId} is not found.`,
-      );
+      throw new NotFoundException(`A article has id:${articleId} is not found.`);
     }
     return article;
   }
@@ -77,15 +71,9 @@ export class ArticleService {
     }
     const targets: ArticleType[] = [];
     if (target === 'tech' || target === 'idea') {
-      all.forEach(
-        (article) => article.type === target && targets.push(article),
-      );
+      all.forEach((article) => article.type === target && targets.push(article));
     } else {
-      all.forEach(
-        (article) =>
-          article.topics.some((topic) => topic === target) &&
-          targets.push(article),
-      );
+      all.forEach((article) => article.topics.some((topic) => topic === target) && targets.push(article));
     }
     return isSome ? targets.slice(0, 3) : targets;
   }
@@ -93,8 +81,7 @@ export class ArticleService {
   // delete one
   async delete(id: string): Promise<ArticleType> {
     const article = await this.model.findById(id);
-    if (!article)
-      throw new NotFoundException(`A article has id:${id} is not found.`);
+    if (!article) throw new NotFoundException(`A article has id:${id} is not found.`);
     return await this.model.findByIdAndDelete(id);
   }
 }

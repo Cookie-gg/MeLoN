@@ -1,12 +1,4 @@
-import {
-  Args,
-  Int,
-  Mutation,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { TopicObject } from 'src/topic/topic.model';
 import { TopicService } from 'src/topic/topic.service';
 import { ArticleInput, ArticleObject } from './article.model';
@@ -14,16 +6,10 @@ import { ArticleService } from './article.service';
 
 @Resolver(() => ArticleObject)
 export class ArticleResolver {
-  constructor(
-    private readonly topicService: TopicService,
-    private readonly articleService: ArticleService,
-  ) {}
+  constructor(private readonly topicService: TopicService, private readonly articleService: ArticleService) {}
 
   @Mutation(() => ArticleObject)
-  async changeArticle(
-    @Args('id') id: string,
-    @Args('args') args: ArticleInput,
-  ) {
+  async changeArticle(@Args('id') id: string, @Args('args') args: ArticleInput) {
     return await this.articleService.change(id, args);
   }
 
@@ -54,9 +40,9 @@ export class ArticleResolver {
 
   @ResolveField(() => [TopicObject])
   async topicIcons(@Parent() article: ArticleObject) {
-    return article.topics.map(
-      async (el) => await this.topicService.findOne(el.toLowerCase()),
-    );
+    if (article.topics) {
+      return article.topics.map(async (el) => await this.topicService.findOne(el.toLowerCase()));
+    }
   }
 
   @ResolveField(() => [TopicObject])

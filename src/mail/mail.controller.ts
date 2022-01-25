@@ -1,15 +1,7 @@
 import { Response } from 'express';
 import { MailGuard } from './mail.guard';
 import { MailService } from './mail.service';
-import {
-  Body,
-  Controller,
-  Header,
-  HttpCode,
-  Post,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Header, HttpCode, Post, Res, UseGuards } from '@nestjs/common';
 
 @Controller('mail')
 export class MailController {

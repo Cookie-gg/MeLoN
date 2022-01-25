@@ -19,7 +19,7 @@ mongoose.set('useFindAndModify', false);
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.PORT ? 'prod' : 'development.local'}`,
+      envFilePath: `.env.${process.env.PORT ? 'production' : 'development.local'}`,
     }),
     MongooseModule.forRoot(`${process.env.MONGODB_KEY}`),
     GraphQLModule.forRoot({

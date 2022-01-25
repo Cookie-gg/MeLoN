@@ -8,18 +8,15 @@ import * as dotenv from 'dotenv';
 
 (async () => {
   dotenv.config({
-    path: `.env.${process.env.PORT ? 'production' : 'development'}`,
+    path: `.env.${process.env.PORT ? 'production' : 'development.local'}`,
   });
   const readFile = util.promisify(fs.readFile);
   const writeFile = util.promisify(fs.writeFile);
   const twemojiSvg = await readFile(
-    path.join(
-      process.cwd(),
-      'node_modules/react-twemoji-picker/data/twemoji.svg',
-    ),
+    path.join(process.cwd(), 'node_modules/react-twemoji-picker/data/twemoji.svg'),
     'utf-8',
   );
-  const octokit = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN });
+  const octokit = new Octokit({ auth: process.env.GH_ACCESS_TOKEN });
   const owner = process.env.GITHUB_OWNER;
   const repo = 'LeMoN';
   const latestCommit = (
@@ -30,9 +27,7 @@ import * as dotenv from 'dotenv';
     })
   ).data.commit;
 
-  const rootTree = (
-    await octokit.rest.git.getTree({ owner, repo, tree_sha: latestCommit.sha })
-  ).data.tree;
+  const rootTree = (await octokit.rest.git.getTree({ owner, repo, tree_sha: latestCommit.sha })).data.tree;
 
   const fileTree = (
     await octokit.rest.git.getTree({
@@ -61,22 +56,14 @@ import * as dotenv from 'dotenv';
 
   const emojiSet: { [key: string]: string } = Object.assign(
     {},
-    ...Object.keys(reactEmojiRender as { [key: string]: string }).map(
-      (key) => ({
-        [key.replaceAll(/\-|_/g, '')]: reactEmojiRender[key],
-      }),
-    ),
+    ...Object.keys(reactEmojiRender as { [key: string]: string }).map((key) => ({
+      [key.replaceAll(/\-|_/g, '')]: reactEmojiRender[key],
+    })),
   );
   const twemojiJson: {
     [key: string]: { unicode: string; name: string; keywords: string[] }[];
   } = JSON.parse(
-    await readFile(
-      path.join(
-        process.cwd(),
-        'node_modules/react-twemoji-picker/data/twemoji.json',
-      ),
-      'utf8',
-    ),
+    await readFile(path.join(process.cwd(), 'node_modules/react-twemoji-picker/data/twemoji.json'), 'utf8'),
   );
   try {
     await writeFile(
@@ -85,9 +72,7 @@ import * as dotenv from 'dotenv';
         Object.keys(twemojiJson).map((key) => ({
           name: key,
           emojis: twemojiJson[key]
-            .filter(
-              (emoji) => emojiSet[emoji.name.replaceAll(/\-|_/g, '')] && emoji,
-            )
+            .filter((emoji) => emojiSet[emoji.name.replaceAll(/\-|_/g, '')] && emoji)
             .map((emoji) => ({
               name: emoji.name.replaceAll('_', '-'),
               text: emojiSet[emoji.name.replaceAll(/\-|_/g, '')],

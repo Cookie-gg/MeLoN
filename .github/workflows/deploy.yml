@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Create .env.prod file
+      - name: Create .env.production file
         uses: SpicyPizza/create-envfile@v1.2
         with:
           envkey_FRONT_URL: "${{ secrets.FRONT_URL }}"
@@ -37,7 +37,7 @@ jobs:
           envkey_GH_ACCESS_TOKEN: "${{ secrets.GH_ACCESS_TOKEN }}"
           envkey_TWITTER_AUTH: "${{ secrets.TWITTER_AUTH }}"
           directory: "./"
-          file_name: .env.prod
+          file_name: .env.production
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
