@@ -26,6 +26,26 @@ jobs:
           echo FRONT_URL="${{ secrets.FRONT_URL }}" >> .env.production
           echo MONGODB_KEY="${{ secrets.MONGODB_KEY }}" >> .env.production
 
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v1.2
+        with:
+          envkey_FRONT_URL: ${{ secrets.FRONT_URL }}
+          envkey_MONGODB_KEY: ${{ secrets.MONGODB_KEY }}
+          envkey_GRAPHQL_SECRET_KEY: ${{ secrets.GRAPHQL_SECRET_KEY }}
+          envkey_AUTH_SECRET_KEY: ${{ secrets.AUTH_SECRET_KEY }}
+          envkey_ICON_SECRET_KEY: ${{ secrets.ICON_SECRET_KEY }}
+          envkey_MARKDOWN_SECRET_KEY: ${{ secrets.MARKDOWN_SECRET_KEY }}
+          envkey_MAIL_SECRET_KEY: ${{ secrets.MAIL_SECRET_KEY }}
+          envkey_ADMIN_NAME: ${{ secrets.ADMIN_NAME }}
+          envkey_ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          envkey_MAIL_USER: ${{ secrets.MAIL_USER }}
+          envkey_MAIL_PASS: ${{ secrets.MAIL_PASS }}
+          envkey_GH_OWNER: ${{ secrets.GH_OWNER }}
+          envkey_GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+          envkey_TWITTER_AUTH: ${{ secrets.TWITTER_AUTH }}
+          directory: "../../"
+          file_name: .env.production
+
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
