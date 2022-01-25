@@ -19,10 +19,7 @@ jobs:
       - name: Create dot env file
         shell: bash
         run: |
-          touch .env.production
-          for s in ${!secrets[@]}; do
-            echo ${s}='${secrets[${s}]}' >> .env.production
-          done
+          touch ../../.env.production
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -38,7 +35,7 @@ jobs:
           npm run build
 
       - name: Generate twemoji.json
-        run: node dist/generateTwemoji.js
+        run: GITHUB_OWNER='${{ secrets.GITHUB_OWNER }}' GH_ACCESS_TOKEN='${{ secrets.GH_ACCESS_TOKEN }}' node dist/generateTwemoji.js
 
       - name: Setup gcloud
         uses: 'google-github-actions/auth@v0'
