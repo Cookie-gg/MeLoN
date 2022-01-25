@@ -16,6 +16,13 @@ jobs:
         node-version: [16.x]
 
     steps:
+      - name: Create dot env file
+      - shell: bash
+        run: |
+          touch .env.production
+          for secret in "${!secrets[@]}" ; do
+            echo "${{ secret }}='${{ secrets[${secret}] }}'" >> .env.production
+
       - name: Checkout repository
         uses: actions/checkout@v2
 
