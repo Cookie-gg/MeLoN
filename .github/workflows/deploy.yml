@@ -19,14 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Create dot env file
-        shell: bash
-        run: |
-          touch .env.production
-          echo FRONT_URL="${{ secrets.FRONT_URL }}" >> .env.production
-          echo MONGODB_KEY="${{ secrets.MONGODB_KEY }}" >> .env.production
-
-      - name: Create .env file
+      - name: Create .env.production file
         uses: SpicyPizza/create-envfile@v1.2
         with:
           envkey_FRONT_URL: ${{ secrets.FRONT_URL }}
