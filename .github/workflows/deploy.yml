@@ -16,13 +16,13 @@ jobs:
         node-version: [16.x]
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+    
       - name: Create dot env file
         shell: bash
         run: |
           touch ../../.env.production
-
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
@@ -35,7 +35,7 @@ jobs:
           npm run build
 
       - name: Generate twemoji.json
-        run: GITHUB_OWNER='${{ secrets.GITHUB_OWNER }}' GH_ACCESS_TOKEN='${{ secrets.GH_ACCESS_TOKEN }}' node dist/generateTwemoji.js
+        run: node dist/generateTwemoji.js
 
       - name: Setup gcloud
         uses: 'google-github-actions/auth@v0'
