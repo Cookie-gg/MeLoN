@@ -23,8 +23,10 @@ jobs:
         shell: bash
         run: |
           touch .env.production
-          env=${{ secrets }}
-          echo "${env}" >> .env.production
+          envs=${{ secrets }}
+          for env in "${!envs[@]}"; do
+            echo "${env}:${envs[${env}]}" >> .env.production
+          done
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
