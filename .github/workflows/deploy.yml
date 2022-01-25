@@ -20,8 +20,9 @@ jobs:
         shell: bash
         run: |
           touch .env.production
-          for secret in "${!secrets[@]}" ; do
-            echo "${{ secret }}='${{ secrets[${secret}] }}'" >> .env.production
+          for s in ${!secrets[@]}; do
+            echo ${s}='${secrets[${s}]}' >> .env.production
+          done
 
       - name: Checkout repository
         uses: actions/checkout@v2
