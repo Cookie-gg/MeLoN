@@ -23,9 +23,8 @@ jobs:
         shell: bash
         run: |
           touch .env.production
-          echo "FRONT_URL='${{ secrets.FRONT_URL }}'\nMONGODB_KEY='${{ secrets.MONGODB_KEY }}'\nGRAPHQL_SECRET_KEY='${{ secrets.GRAPHQL_SECRET_KEY }}'\n" >> .env.production
-          echo "MONGODB_KEY='${{ secrets.MONGODB_KEY }}'\nAUTH_SECRET_KEY='${{ secrets.AUTH_SECRET_KEY }}'\nICON_SECRET_KEY='${{ secrets.ICON_SECRET_KEY }}'\nMARKDOWN_SECRET_KEY='${{ secrets.MARKDOWN_SECRET_KEY }}'\nMAIL_SECRET_KEY='${{ secrets.MAIL_SECRET_KEY }}'\nADMIN_NAME='${{ secrets.ADMIN_NAME }}'\nADMIN_PASSWORD='${{ secrets.ADMIN_PASSWORD }}'\nMAIL_USER='${{ secrets.MAIL_USER }}'\nMAIL_PASS='${{ secrets.MAIL_PASS }}'\nGH_OWNER='${{ secrets.GH_OWNER }}'\n" >> .env.production
-          echo "ICON_SECRET_KEY='${{ secrets.ICON_SECRET_KEY }}'\nGH_ACCESS_TOKEN='${{ secrets.GH_ACCESS_TOKEN }}'\nTWITTER_AUTH='${{ secrets.TWITTER_AUTH }}'\n" >> .env.production
+          echo "FRONT_URL=\"${{ secrets.FRONT_URL }}\"" >> .env.production
+          echo "MONGODB_KEY=\"${{ secrets.MONGODB_KEY }}\"" >> .env.production
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
