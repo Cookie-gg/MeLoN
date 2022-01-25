@@ -10,8 +10,7 @@ export class TopicService {
   // creat one topic
   async create(dto: TopicInput): Promise<TopicType> {
     const topic = await this.model.findOne({ name: dto.name });
-    if (topic)
-      throw new NotFoundException(`There is already ${dto.name} topic.`);
+    if (topic) throw new NotFoundException(`There is already ${dto.name} topic.`);
     return await new this.model(dto).save();
   }
 
@@ -35,9 +34,6 @@ export class TopicService {
   async update(dto: TopicInput): Promise<TopicType> {
     const topic = await this.model.findOne({ name: dto.name });
     if (!topic) throw new NotFoundException(`${dto.name} topic is not found.`);
-    return await this.model.findOneAndUpdate(
-      { name: dto.name },
-      { displayName: dto.displayName, icon: dto.icon },
-    );
+    return await this.model.findOneAndUpdate({ name: dto.name }, { displayName: dto.displayName, icon: dto.icon });
   }
 }

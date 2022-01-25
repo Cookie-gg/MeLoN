@@ -4,6 +4,6 @@ import { IconService } from './icon.service';
 
 @Module({
   controllers: [IconController],
-  providers: [IconService]
+  providers: [IconService],
 })
 export class IconModule {}

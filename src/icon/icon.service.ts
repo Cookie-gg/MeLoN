@@ -9,15 +9,7 @@ export class IconService {
   async collections(): Promise<string[]> {
     const readFile = util.promisify(fs.readFile);
     return Object.keys(
-      JSON.parse(
-        await readFile(
-          path.join(
-            process.cwd(),
-            'node_modules/@iconify/json/collections.json',
-          ),
-          'utf-8',
-        ),
-      ),
+      JSON.parse(await readFile(path.join(process.cwd(), 'node_modules/@iconify/json/collections.json'), 'utf-8')),
     );
   }
   async find(search?: string) {
@@ -27,20 +19,10 @@ export class IconService {
     await Promise.all(
       collections.map(async (name) => {
         const json: IconObject = JSON.parse(
-          await readFile(
-            path.join(
-              process.cwd(),
-              'node_modules/@iconify/json/json',
-              `${name}.json`,
-            ),
-            'utf-8',
-          ),
+          await readFile(path.join(process.cwd(), 'node_modules/@iconify/json/json', `${name}.json`), 'utf-8'),
         );
         const sortedIcons = Object.keys(json.icons).filter((icon) =>
-          search
-            ? icon.match(search.replaceAll(/\.|,|\-/g, '').toLowerCase()) &&
-              icon
-            : icon,
+          search ? icon.match(search.replaceAll(/\.|,|\-/g, '').toLowerCase()) && icon : icon,
         );
         if (sortedIcons.length > 0) {
           icons.push({ name: json.info.name, code: name, icons: sortedIcons });
@@ -59,9 +41,7 @@ export class IconService {
         unicode: string;
         keywords: string[];
       }[];
-    }[] = JSON.parse(
-      await readFile(path.join(process.cwd(), 'json/twemoji.json'), 'utf8'),
-    );
+    }[] = JSON.parse(await readFile(path.join(process.cwd(), 'json/twemoji.json'), 'utf8'));
     if (search) {
       const result: { name: string; text: string; unicode: string }[] = [];
       twemojis.map((genre) => {

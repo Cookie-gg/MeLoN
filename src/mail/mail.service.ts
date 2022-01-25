@@ -3,17 +3,7 @@ import { createTransport } from 'nodemailer';
 
 @Injectable()
 export class MailService {
-  async lemon({
-    name,
-    email,
-    subject,
-    message,
-  }: {
-    name: string;
-    email: string;
-    subject: string;
-    message: string;
-  }) {
+  async lemon({ name, email, subject, message }: { name: string; email: string; subject: string; message: string }) {
     // mail configurations
     const transporter = createTransport({
       service: 'gmail',

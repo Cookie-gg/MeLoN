@@ -1,11 +1,4 @@
-import {
-  Args,
-  Mutation,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { ArticleObject } from 'src/article/article.model';
 import { ArticleService } from 'src/article/article.service';
 import { TopicInput, TopicObject } from './topic.model';
@@ -13,10 +6,7 @@ import { TopicService } from './topic.service';
 
 @Resolver(() => TopicObject)
 export class TopicResolver {
-  constructor(
-    private readonly topicService: TopicService,
-    private readonly articleService: ArticleService,
-  ) {}
+  constructor(private readonly topicService: TopicService, private readonly articleService: ArticleService) {}
 
   @Mutation(() => TopicObject)
   async addTopic(@Args('args') args: TopicInput) {
