@@ -23,7 +23,20 @@ jobs:
         shell: bash
         run: |
           touch .env.production
-          echo "FRONT_URL=${{ secrets.FRONT_URL }}" >> .env.production
+          echo "FRONT_URL='${{ secrets.FRONT_URL }}'\n" >> .env.production
+          echo "MONGODB_KEY='${{ secrets.MONGODB_KEY }}'\n" >> .env.production
+          echo "GRAPHQL_SECRET_KEY='${{ secrets.GRAPHQL_SECRET_KEY }}'\n" >> .env.production
+          echo "AUTH_SECRET_KEY='${{ secrets.AUTH_SECRET_KEY }}'\n" >> .env.production
+          echo "ICON_SECRET_KEY='${{ secrets.ICON_SECRET_KEY }}'\n" >> .env.production
+          echo "MARKDOWN_SECRET_KEY='${{ secrets.MARKDOWN_SECRET_KEY }}'\n" >> .env.production
+          echo "MAIL_SECRET_KEY='${{ secrets.MAIL_SECRET_KEY }}'\n" >> .env.production
+          echo "ADMIN_NAME='${{ secrets.ADMIN_NAME }}'\n" >> .env.production
+          echo "ADMIN_PASSWORD='${{ secrets.ADMIN_PASSWORD }}'\n" >> .env.production
+          echo "MAIL_USER='${{ secrets.MAIL_USER }}'\n" >> .env.production
+          echo "MAIL_PASS='${{ secrets.MAIL_PASS }}'\n" >> .env.production
+          echo "GH_OWNER='${{ secrets.GH_OWNER }}'\n" >> .env.production
+          echo "GH_ACCESS_TOKEN='${{ secrets.GH_ACCESS_TOKEN }}'\n" >> .env.production
+          echo "TWITTER_AUTH='${{ secrets.TWITTER_AUTH }}'\n" >> .env.production
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
