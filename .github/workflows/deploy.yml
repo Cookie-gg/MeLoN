@@ -23,6 +23,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v1.2
         with:
           envkey_FRONT_URL: "${{ secrets.FRONT_URL }}"
+          envkey_MONGODB_KEY: "${{ secrets.MONGODB_KEY }}"
           directory: "./"
           file_name: .env.production
 
