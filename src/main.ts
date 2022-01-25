@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: [`${process.env.FRONT_URL}`, /https:\/\/.*?cookie-gg\.vercel\.app/],
+      origin: [`https://cookie-gg.dev/`, /https:\/\/.*?cookie-gg\.vercel\.app/],
       credentials: true,
     },
   });
