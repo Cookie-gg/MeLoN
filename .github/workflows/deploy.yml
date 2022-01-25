@@ -23,8 +23,8 @@ jobs:
         shell: bash
         run: |
           touch .env.production
-          echo "FRONT_URL=\"${{ secrets.FRONT_URL }}\"" >> .env.production
-          echo "MONGODB_KEY=\"${{ secrets.MONGODB_KEY }}\"" >> .env.production
+          echo FRONT_URL="${{ secrets.FRONT_URL }}" >> .env.production
+          echo MONGODB_KEY="${{ secrets.MONGODB_KEY }}" >> .env.production
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
