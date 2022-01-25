@@ -19,13 +19,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Create .env.production file
+      - name: Create .env.prod file
         uses: SpicyPizza/create-envfile@v1.2
         with:
           envkey_FRONT_URL: "${{ secrets.FRONT_URL }}"
           envkey_MONGODB_KEY: "${{ secrets.MONGODB_KEY }}"
           directory: "./"
-          file_name: .env.production
+          file_name: .env.prod
 
       - name: Setup Node.js
         uses: actions/setup-node@v1

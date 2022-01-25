@@ -19,15 +19,11 @@ mongoose.set('useFindAndModify', false);
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.PORT ? 'production' : 'development'}`,
+      envFilePath: `.env.${process.env.PORT ? 'prod' : 'development.local'}`,
     }),
-    MongooseModule.forRoot(
-      'mongodb+srv://cookie-gg:x9378l1FmJp03opU@page-data.3y2of.mongodb.net/data?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(`${process.env.MONGODB_KEY}`),
     GraphQLModule.forRoot({
-      autoSchemaFile: !process.env.GAE_ENV
-        ? './src/schema.gql'
-        : '/tmp/schema.gql',
+      autoSchemaFile: !process.env.GAE_ENV ? './src/schema.gql' : '/tmp/schema.gql',
       buildSchemaOptions: {
         dateScalarMode: 'timestamp',
         fieldMiddleware: [AppMiddleware],
