@@ -23,7 +23,7 @@ import { Schema } from 'mongoose';
     PassportModule,
     JwtModule.register({
       secret: JWT_SECRET_KEY,
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '2h' },
     }),
   ],
   providers: [AdminService, LocalStrategy, JwtStrategy],

@@ -12,6 +12,7 @@ import { ArticleModule } from './article/article.module';
 import { MarkdownModule } from './markdown/markdown.module';
 import { MailModule } from './mail/mail.module';
 import { IconModule } from './icon/icon.module';
+import { StorageModule } from './storage/storage.module';
 
 mongoose.set('useFindAndModify', false);
 
@@ -35,6 +36,7 @@ mongoose.set('useFindAndModify', false);
     MarkdownModule,
     MailModule,
     IconModule,
+    StorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
