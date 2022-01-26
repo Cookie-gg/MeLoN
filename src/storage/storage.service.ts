@@ -1,13 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Storage, StorageOptions } from '@google-cloud/storage';
+import { Storage } from '@google-cloud/storage';
 
 @Injectable()
 export class StorageService {
   async upload(fileName: string): Promise<{ url: string; name: string }> {
-    const opts: StorageOptions = process.env.PORT
-      ? { keyFile: JSON.parse(`${process.env.GCP_SA_KEY}`) }
-      : { keyFilename: 'gae-key.json' };
-    const storage = new Storage(opts);
+    const storage = new Storage({ keyFilename: 'gae-key.json' });
     const bucket = storage.bucket('lemon-storage');
     await bucket.setCorsConfiguration([
       {

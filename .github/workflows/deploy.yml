@@ -36,10 +36,15 @@ jobs:
           envkey_GH_OWNER: '"${{ secrets.GH_OWNER }}"'
           envkey_GH_ACCESS_TOKEN: '"${{ secrets.GH_ACCESS_TOKEN }}"'
           envkey_TWITTER_AUTH: '"${{ secrets.TWITTER_AUTH }}"'
-          envkey_GCP_SA_KEY: '"${{ secrets.GCP_SA_KEY }}"'
           envkey_STORAGE_SECRET_KEY: '"${{ secrets.STORAGE_SECRET_KEY }}"'
           directory: './'
           file_name: .env.production
+
+      - name: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "gae-key.json"
+          json: ${{ secrets.GCP_SA_KEY }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
