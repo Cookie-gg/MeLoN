@@ -4,7 +4,6 @@ import { Storage, StorageOptions } from '@google-cloud/storage';
 @Injectable()
 export class StorageService {
   async upload(fileName: string): Promise<{ url: string; name: string }> {
-    // try {
     const opts: StorageOptions = process.env.PORT
       ? { keyFile: JSON.parse(`${process.env.GCP_SA_KEY}`) }
       : { keyFilename: 'gae-key.json' };
@@ -29,10 +28,5 @@ export class StorageService {
       contentType: 'application/octet-stream',
     });
     return { url, name };
-    // } catch (e) {
-    //   if (e instanceof Error) {
-    //     return { success: false, e };
-    //   }
-    // }
   }
 }

@@ -8,11 +8,8 @@ export class StorageController {
   constructor(private readonly storageService: StorageService) {}
 
   @Get('upload')
-  async upload(@Query('fileName') fileName: string): Promise<{ success: boolean; sinedUrl?: string; e?: Error }> {
-    if (fileName) {
-      return this.storageService.upload(fileName);
-    } else {
-      return { success: false, e: { name: 'empty query', message: 'can not accept empty query' } };
-    }
+  async upload(@Query('fileName') fileName: string): Promise<{ url: string; name: string }> {
+    if (fileName) return this.storageService.upload(fileName);
+    else throw new Error('can not accept empty query');
   }
 }
