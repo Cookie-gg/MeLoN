@@ -8,9 +8,10 @@ export class IconController {
   constructor(private readonly iconService: IconService) {}
 
   @Get()
-  find(@Query('search') search?: string) {
-    return this.iconService.find(search);
+  find(@Query('search') search?: string, @Query('index') index?: number, @Query('limit') limit?: number) {
+    return this.iconService.find(search, index, limit);
   }
+
   @Get('twemoji')
   twemoji(@Query('search') search?: string) {
     return this.iconService.twemoji(search);

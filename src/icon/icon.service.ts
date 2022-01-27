@@ -12,24 +12,25 @@ export class IconService {
       JSON.parse(await readFile(path.join(process.cwd(), 'node_modules/@iconify/json/collections.json'), 'utf-8')),
     );
   }
-  async find(search?: string) {
+  async find(search?: string, index = 0, limit = 0) {
     const readFile = util.promisify(fs.readFile);
     const collections = await this.collections();
-    const icons: { name: string; code: string; icons: string[] }[] = [];
-    await Promise.all(
-      collections.map(async (name) => {
-        const json: IconObject = JSON.parse(
-          await readFile(path.join(process.cwd(), 'node_modules/@iconify/json/json', `${name}.json`), 'utf-8'),
-        );
-        const sortedIcons = Object.keys(json.icons).filter((icon) =>
-          search ? icon.match(search.replaceAll(/\.|,|\-/g, '').toLowerCase()) && icon : icon,
-        );
-        if (sortedIcons.length > 0) {
-          icons.push({ name: json.info.name, code: name, icons: sortedIcons });
-        }
-      }),
-    );
-    return icons;
+    const results: string[] = [];
+    for (let i = 0; i < collections.length; i++) {
+      const name = collections[i];
+      const json: IconObject = JSON.parse(
+        await readFile(path.join(process.cwd(), 'node_modules/@iconify/json/json', `${name}.json`), 'utf-8'),
+      );
+      const icons = Object.keys(json.icons)
+        .filter((icon) => (search ? icon.match(search.replaceAll(/\.|,|\-/g, '').toLowerCase()) && icon : icon))
+        .map((icon) => `${name}:${icon}`);
+      icons.length > 0 && results.push(...icons);
+    }
+    index = Number(index);
+    limit = Number(limit);
+    limit = limit === 0 ? results.length : Number(limit);
+    if (index === 0 && limit !== 0) return { result: results.slice(index, index + limit), limit: results.length };
+    else return results.slice(index, index + limit);
   }
   async twemoji(search?: string) {
     const readFile = util.promisify(fs.readFile);
