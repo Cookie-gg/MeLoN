@@ -40,7 +40,7 @@ jobs:
           directory: './'
           file_name: .env.production
 
-      - name: create-json
+      - name: Create json file
         uses: jsdaniell/create-json@1.1.2
         with:
           name: "gae-key.json"
