@@ -8,7 +8,7 @@ export class StorageService {
     const bucket = storage.bucket('lemon-storage');
     await bucket.setCorsConfiguration([
       {
-        origin: [`${process.env.FRONT_URL}`],
+        origin: [`${process.env.FRONT_URL}`, `${process.env.PREVIEW_URL}`],
         responseHeader: ['content-type'],
         method: ['PUT'],
         maxAgeSeconds: 3600,
