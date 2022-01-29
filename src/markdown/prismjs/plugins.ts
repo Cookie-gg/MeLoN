@@ -15,9 +15,8 @@ function customClass(): void {
     } else if (content === ')' || content === ']' || content === '}') {
       lv--;
       return levelingPunc(lv + 1);
-    } else if (content.match(/export|return|declare|try|catch|finally|async|await/) && type === 'keyword') {
-      return 'red';
-    } else if (content.match(/;|\.|,|\:/)) return 'white';
+    } else if (content.match(/export|return|declare|try|catch|finally|async|await|&amp;|\||\.{3}/)) return 'red';
+    else if (content.match(/^(\;|\.|,|\:|\>|&lt;)$/)) return 'white';
     else if (content === '=>' && type === 'operator') return 'blue';
   });
 }
