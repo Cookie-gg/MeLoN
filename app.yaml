@@ -7,12 +7,10 @@ entrypoint: npm run start:prod
 instance_class: F1
 
 automatic_scaling:
-  target_cpu_utilization: 0.6
-  target_throughput_utilization: 0.6
-  min_instances: automatic
+  min_instances: 0
   max_instances: 2
   min_idle_instances: automatic
   max_idle_instances: 1
   max_concurrent_requests: 80
-  min_pending_latency: 30ms
+  min_pending_latency: 3000ms
   max_pending_latency: automatic
