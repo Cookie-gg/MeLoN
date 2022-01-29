@@ -6,7 +6,8 @@ export default function customLinkAttr(md: MarkdownIt) {
     tokens.forEach((token) => {
       token.children &&
         token.children.forEach((child) => {
-          if (child.type === 'link_open' && !child.attrGet('href').match(/cookie-gg\.vercel\.app/)) {
+          const href = child.attrGet('href');
+          if (child.type === 'link_open' && href.match(/cookie-gg/) && href.match(/^\#/)) {
             child.attrPush(['target', '_blank']);
             child.attrPush(['rel', 'noopener']);
           }
