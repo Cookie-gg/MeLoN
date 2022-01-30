@@ -7,7 +7,6 @@ function escapeCommentOut(
 ): string {
   const [tokens, idx] = args;
   const { content } = tokens[idx];
-  console.log(content);
   if (content.match(/&lt;!--(.*?)--&gt;/)) {
     return '';
   } else return content;

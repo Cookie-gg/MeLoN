@@ -12,7 +12,6 @@ export default function customLink(md: MarkdownIt) {
         tokens[i].content.split('http').length < 3
       ) {
         const widgetEnable = domainCheck(tokens[i].content);
-        // console.log(widgetEnable);
         if (widgetEnable) {
           tokens[i].type = 'link_widget';
           tokens[i].content = widgetEnable.link;
