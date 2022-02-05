@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { FastifyReply } from 'fastify';
 import { MailGuard } from './mail.guard';
 import { MailService } from './mail.service';
 import { Body, Controller, Header, HttpCode, Post, Res, UseGuards } from '@nestjs/common';
@@ -14,9 +14,9 @@ export class MailController {
   async getHello(
     @Body()
     body: { name: string; email: string; subject: string; message: string },
-    @Res() res: Response,
+    @Res() res: FastifyReply,
   ) {
     await this.mailService.lemon(body);
-    return res.end(JSON.stringify({ success: true }));
+    return res.send(JSON.stringify({ success: true }));
   }
 }

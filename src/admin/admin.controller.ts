@@ -1,7 +1,7 @@
 import { Controller, UseGuards, Post, Get, Req } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
-import { Request } from 'express';
+import { FastifyRequest } from 'fastify';
 import { AdminGuard } from './admin.guard';
 import { AdminService } from './admin.service';
 
@@ -40,7 +40,7 @@ export class AdminController {
   }
 
   @Get('deliver')
-  async deliver(@Req() req: Request): Promise<{ token?: string; success?: boolean }> {
+  async deliver(@Req() req: FastifyRequest): Promise<{ token?: string; success?: boolean }> {
     if (await this.adminService.deliver(req.headers.authorization.replace(/^bearer /, ''))) {
       return { token: this.jwtService.sign({ isAdmin: true }) };
     } else {

@@ -1,4 +1,3 @@
-import * as mongoose from 'mongoose';
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import AppMiddleware from './app.middleware';
@@ -14,7 +13,7 @@ import { MailModule } from './mail/mail.module';
 import { IconModule } from './icon/icon.module';
 import { StorageModule } from './storage/storage.module';
 
-mongoose.set('useFindAndModify', false);
+// mongoose.set('useFindAndModify', false);
 
 @Module({
   imports: [
@@ -29,6 +28,7 @@ mongoose.set('useFindAndModify', false);
         dateScalarMode: 'timestamp',
         fieldMiddleware: [AppMiddleware],
       },
+      cors: false,
     }),
     AdminModule,
     TopicModule,
