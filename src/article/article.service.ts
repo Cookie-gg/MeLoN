@@ -21,7 +21,7 @@ export class ArticleService {
 
   // find one by article id
   async findOne(articleId: string): Promise<ArticleType> {
-    const article = await this.model.findOne({ articleId }).map((el) => topicSort(el));
+    const article = topicSort(await this.model.findOne({ articleId }));
     if (!article) {
       throw new NotFoundException(`A article has id:${articleId} is not found.`);
     }

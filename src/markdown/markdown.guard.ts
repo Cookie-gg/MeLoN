@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export class MarkdownGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     if (
-      context.getArgs()[0].rawHeaders[context.getArgs()[0].rawHeaders.indexOf('authorization') + 1] ===
+      context.getArgs()[0].raw.rawHeaders[context.getArgs()[0].raw.rawHeaders.indexOf('key') + 1] ===
       process.env.MARKDOWN_SECRET_KEY
     ) {
       return true;
