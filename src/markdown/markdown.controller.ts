@@ -11,7 +11,6 @@ export class MarkdownController {
 
   @Post()
   async parse(@Body() body: { data: string }, @Res() res: FastifyReply) {
-    console.log(body.data);
     const md = unzip(body.data);
     const html = await this.markdownItService.render(md);
     return res.send(gzip(html));
