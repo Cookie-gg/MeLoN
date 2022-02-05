@@ -1,7 +1,8 @@
-import { Response } from 'express';
-import { MarkdownService } from './markdown.service';
-import { Body, Controller, HttpCode, Post, Res, UseGuards } from '@nestjs/common';
+import { FastifyReply } from 'fastify';
+import { gzip, unzip } from 'src/common';
 import { MarkdownGuard } from './markdown.guard';
+import { MarkdownService } from './markdown.service';
+import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
 
 @UseGuards(MarkdownGuard)
 @Controller('md')
@@ -9,8 +10,10 @@ export class MarkdownController {
   constructor(private readonly markdownItService: MarkdownService) {}
 
   @Post()
-  @HttpCode(200)
-  async parse(@Body() body: { data: string }, @Res() res: Response) {
-    return res.end(await this.markdownItService.render(body.data));
+  async parse(@Body() body: { data: string }, @Res() res: FastifyReply) {
+    console.log(body.data);
+    const md = unzip(body.data);
+    const html = await this.markdownItService.render(md);
+    return res.send(gzip(html));
   }
 }
