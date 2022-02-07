@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { releaseSort, topicSort } from 'src/common';
+import { releaseSort, topicSort } from '../common';
 import { ArticleInput, ArticleType } from './article.model';
 
 @Injectable()
