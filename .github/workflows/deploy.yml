@@ -44,9 +44,8 @@ jobs:
       - name: Create json file
         uses: jsdaniell/create-json@1.1.2
         with:
-          name: "gae-key.json"
+          name: 'gae-key.json'
           json: ${{ secrets.GCP_SA_KEY }}
-
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
@@ -55,8 +54,9 @@ jobs:
 
       - name: Jest coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2.0.3
-        with: github-token: ${{ secrets.SECRET_TOKEN }}
-              test-script: npm run test
+        with:
+          github-token: ${{ secrets.SECRET_TOKEN }}
+          test-script: npm run test
 
       - name: Build Nest.js application
         run: |
