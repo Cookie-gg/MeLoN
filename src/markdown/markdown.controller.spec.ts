@@ -13,7 +13,8 @@ describe('MarkdownController', () => {
   const data = gzip('# heading');
 
   beforeEach(async () => {
-    dotenv.config({ path: `.env.${process.env.PORT ? 'production' : 'development.local'}` });
+    !process.env.MARKDOWN_SECRET_KEY &&
+      dotenv.config({ path: `.env.${process.env.PORT ? 'production' : 'development.local'}` });
     mdService = new MarkdownService();
     mdController = new MarkdownController(mdService);
 
