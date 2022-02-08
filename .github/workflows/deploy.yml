@@ -54,10 +54,10 @@ jobs:
 
       - name: Jest coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2.0.3
+        env:
+          MARKDOWN_SECRET_KEY: ${{ secrets.MARKDOWN_SECRET_KEY }}
         with:
-          test-script: MARKDOWN_SECRET_KEY="${{ secrets.MARKDOWN_SECRET_KEY }}" jest --ci --json --coverage --testLocationInResults --outputFile=report.json
           github-token: ${{ github.token }}
-          working-directory: <dir>
 
       - name: Build Nest.js application
         run: |
