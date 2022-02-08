@@ -14,11 +14,7 @@ describe('MarkdownController', () => {
 
   beforeEach(async () => {
     !process.env.MARKDOWN_SECRET_KEY &&
-      dotenv.config({ path: `.env.${process.env.PORT ? 'production' : 'development.local'}` });
-
-    console.log(__dirname);
-    console.log(process.cwd());
-    console.log(process.env.MARKDOWN_SECRET_KEY);
+      dotenv.config({ path: `${__dirname}/.env.${process.env.PORT ? 'production' : 'development.local'}` });
 
     mdService = new MarkdownService();
     mdController = new MarkdownController(mdService);
@@ -41,13 +37,15 @@ describe('MarkdownController', () => {
   });
 
   it('/POST md', async () => {
-    const res = await app.inject({
-      method: 'POST',
-      path: '/md',
-      payload: { data },
-      headers: { key: process.env.MARKDOWN_SECRET_KEY },
-    });
-    expect(unzip(res.body)).toBe(unzip(await mdController.parse({ data })));
+    if (process.env.MARKDOWN_SECRET_KEY) {
+      const res = await app.inject({
+        method: 'POST',
+        path: '/md',
+        payload: { data },
+        headers: { key: process.env.MARKDOWN_SECRET_KEY },
+      });
+      expect(unzip(res.body)).toBe(unzip(await mdController.parse({ data })));
+    }
   });
 
   afterAll(async () => {

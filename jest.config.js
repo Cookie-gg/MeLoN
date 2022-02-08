@@ -7,10 +7,5 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverageFrom: ['**/*.(t|j)s'],
   moduleDirectories: ['node_modules', '<rootDir>/src'],
-  coverageThreshold: {
-    global: {
-      lines: 80,
-    },
-  },
   setupFiles: ['dotenv/config'],
 };
