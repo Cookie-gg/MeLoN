@@ -16,6 +16,8 @@ describe('MarkdownController', () => {
     !process.env.MARKDOWN_SECRET_KEY &&
       dotenv.config({ path: `${__dirname}/.env.${process.env.PORT ? 'production' : 'development.local'}` });
 
+    console.log(process.env.MARKDOWN_SECRET_KEY);
+
     mdService = new MarkdownService();
     mdController = new MarkdownController(mdService);
 
