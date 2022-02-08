@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as util from 'util';
 import { Injectable } from '@nestjs/common';
-import type { IconObject } from 'src/types/common';
+import type { IconObject } from 'types/common';
 
 @Injectable()
 export class IconService {

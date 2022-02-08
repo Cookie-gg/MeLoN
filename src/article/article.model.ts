@@ -1,5 +1,5 @@
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
-import { TopicObject, TopicType } from 'src/topic/topic.model';
+import { TopicObject, TopicType } from 'topic/topic.model';
 
 @ObjectType()
 export class ArticleObject {

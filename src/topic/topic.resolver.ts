@@ -1,6 +1,6 @@
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { ArticleObject } from 'src/article/article.model';
-import { ArticleService } from 'src/article/article.service';
+import { ArticleObject } from 'article/article.model';
+import { ArticleService } from 'article/article.service';
 import { TopicInput, TopicObject } from './topic.model';
 import { TopicService } from './topic.service';
 

@@ -3,7 +3,7 @@ import { forwardRef, Module } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { ArticleResolver } from './article.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TopicModule } from 'src/topic/topic.module';
+import { TopicModule } from 'topic/topic.module';
 
 @Module({
   imports: [
