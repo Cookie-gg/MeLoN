@@ -52,16 +52,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Build Nest.js application
-        run: |
-          npm i
-          npm run build
-
       - name: Jest coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2.0.3
         with:
           github-token: ${{ secrets.SECRET_TOKEN }}
           test-script: npm run test MARKDOWN_SECRET_KEY="${{ secrets.MARKDOWN_SECRET_KEY }}"
+
+      - name: Build Nest.js application
+        run: |
+          npm i
+          npm run build
 
       - name: Setup gcloud
         uses: "google-github-actions/auth@v0"
