@@ -16,8 +16,6 @@ describe('MarkdownController', () => {
     !process.env.MARKDOWN_SECRET_KEY &&
       dotenv.config({ path: `${__dirname}/.env.${process.env.PORT ? 'production' : 'development.local'}` });
 
-    console.log(process.env.MARKDOWN_SECRET_KEY);
-
     mdService = new MarkdownService();
     mdController = new MarkdownController(mdService);
 
@@ -40,6 +38,7 @@ describe('MarkdownController', () => {
 
   it('/POST md', async () => {
     if (process.env.MARKDOWN_SECRET_KEY) {
+      console.log('exist env');
       const res = await app.inject({
         method: 'POST',
         path: '/md',
