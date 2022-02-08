@@ -1,10 +1,10 @@
 import * as dotenv from 'dotenv';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import { gzip, unzip } from '../common';
-import { MarkdownController } from './markdown.controller';
-import { MarkdownService } from './markdown.service';
+import { gzip, unzip } from 'common';
+import { MarkdownController } from 'markdown/markdown.controller';
+import { MarkdownService } from 'markdown/markdown.service';
 import { Test } from '@nestjs/testing';
-import { MarkdownModule } from './markdown.module';
+import { MarkdownModule } from 'markdown/markdown.module';
 
 describe('MarkdownController', () => {
   let mdController: MarkdownController;
