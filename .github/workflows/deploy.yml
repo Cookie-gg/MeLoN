@@ -55,7 +55,7 @@ jobs:
       - name: Jest coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2.0.3
         with:
-          github-token: ${{ secrets.SECRET_TOKEN }}
+          github-token: ${{ github.token }}
 
       - name: Build Nest.js application
         run: |
