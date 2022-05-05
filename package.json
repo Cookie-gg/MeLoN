@@ -29,7 +29,7 @@
     "@nestjs/graphql": "^9.1.2",
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/mongoose": "^9.0.2",
-    "@nestjs/passport": "^8.1.0",
+    "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-fastify": "^8.2.6",
     "@octokit/rest": "^18.12.0",
     "@steelydylan/prism-diff-highlight": "^1.0.4",

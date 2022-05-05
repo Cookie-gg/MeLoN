@@ -1,11 +1,25 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AuthTokenType } from './admin.model';
 
 @Injectable()
 export class AdminService {
-  constructor(@InjectModel('admin') private readonly authTokenModel: Model<AuthTokenType>) {}
+  constructor(
+    @InjectModel('admin') private readonly authTokenModel: Model<AuthTokenType>,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  async signIn(): Promise<string> {
+    return await this.jwtService.signAsync(
+      { isAdmin: true },
+      {
+        secret: process.env.JWT_SECRET_KEY,
+        expiresIn: '2h',
+      },
+    );
+  }
 
   async promise(authToken: string): Promise<AuthTokenType> {
     // delete all

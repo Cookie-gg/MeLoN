@@ -13,15 +13,15 @@ export class AdminController {
   @UseGuards(AuthGuard('local'))
   @Post('/login')
   async login(): Promise<{ token: string }> {
-    const token = this.jwtService.sign({ isAdmin: true });
+    const token = await this.adminService.signIn();
     await this.adminService.promise(token);
     return { token };
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('/logout')
-  logout(): boolean {
-    this.jwtService.sign({ isAdmin: true }); // create new token for logout
+  async logout(): Promise<boolean> {
+    await this.adminService.signIn(); // create new token for logout
     return true;
   }
 
@@ -34,7 +34,7 @@ export class AdminController {
   @UseGuards(AuthGuard('jwt'))
   @Get('/refresh')
   async refresh(): Promise<{ token: string }> {
-    const token = this.jwtService.sign({ isAdmin: true });
+    const token = await this.adminService.signIn();
     await this.adminService.promise(token);
     return { token };
   }
@@ -42,7 +42,7 @@ export class AdminController {
   @Get('deliver')
   async deliver(@Req() req: FastifyRequest): Promise<{ token?: string; success?: boolean }> {
     if (await this.adminService.deliver(req.headers.authorization.replace(/^bearer /, ''))) {
-      return { token: this.jwtService.sign({ isAdmin: true }) };
+      return { token: await this.adminService.signIn() };
     } else {
       return { success: false };
     }
