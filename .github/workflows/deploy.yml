@@ -38,6 +38,7 @@ jobs:
           envkey_TWITTER_AUTH: '"${{ secrets.TWITTER_AUTH }}"'
           envkey_STORAGE_SECRET_KEY: '"${{ secrets.STORAGE_SECRET_KEY }}"'
           envkey_PREVIEW_URL: '"${{ secrets.PREVIEW_URL }}"'
+          envkey_JWT_SECRET_KEY: '"${{ secrets.JWT_SECRET_KEY }}"'
           directory: "./"
           file_name: .env.production
 
