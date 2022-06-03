@@ -1,6 +1,5 @@
 import * as dotenv from 'dotenv';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import { gzip, unzip } from 'common';
 import { MarkdownController } from 'markdown/markdown.controller';
 import { MarkdownService } from 'markdown/markdown.service';
 import { Test } from '@nestjs/testing';
@@ -10,7 +9,7 @@ describe('MarkdownController', () => {
   let mdController: MarkdownController;
   let mdService: MarkdownService;
   let app: NestFastifyApplication;
-  const data = gzip('# heading');
+  const data = '# heading';
 
   beforeEach(async () => {
     !process.env.MARKDOWN_SECRET_KEY &&
@@ -33,7 +32,7 @@ describe('MarkdownController', () => {
   it('should parse html', async () => {
     const result = '<h1 id="heading">heading</h1>\n';
 
-    expect(unzip(await mdController.parse({ data }))).toBe(result);
+    expect(await mdController.parse({ data })).toBe(result);
   });
 
   it('/POST md', async () => {
@@ -45,7 +44,7 @@ describe('MarkdownController', () => {
         payload: { data },
         headers: { key: process.env.MARKDOWN_SECRET_KEY },
       });
-      expect(unzip(res.body)).toBe(unzip(await mdController.parse({ data })));
+      expect(res.body).toBe(await mdController.parse({ data }));
     }
   });
 
