@@ -1,4 +1,3 @@
-import { gzip, unzip } from '../common';
 import { MarkdownGuard } from './markdown.guard';
 import { MarkdownService } from './markdown.service';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
@@ -10,7 +9,7 @@ export class MarkdownController {
 
   @Post()
   async parse(@Body() body: { data: string }) {
-    const html = await this.markdownItService.render(unzip(body.data));
-    return gzip(html);
+    const html = await this.markdownItService.render(body.data);
+    return html;
   }
 }
