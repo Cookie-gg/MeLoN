@@ -12,10 +12,11 @@ function parseGrammer(lang?: string): Prism.Grammar | undefined {
 
 export default function highlight(content: string, langName: string, hasDiff: boolean): string {
   if (hasDiff) {
-    if (langName) {
-      return Prism.highlight(content, Prism.languages.diff, `diff-${langName}`);
-    } else return Prism.highlight(content, Prism.languages.diff, 'diff');
-  } else if (parseGrammer(langName)) {
-    return Prism.highlight(content, parseGrammer(langName), langName);
+    return Prism.highlight(content, Prism.languages.diff, langName ? `diff-${langName}` : 'diff');
   }
+  const langGrammer = parseGrammer(langName);
+  if (langGrammer) {
+    return Prism.highlight(content, langGrammer, langName);
+  }
+  return content;
 }
